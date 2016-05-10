@@ -3,6 +3,7 @@
 namespace AppBundle\DataFixtures\ORM;
 
 
+use AppBundle\Entity\Local;
 use AppBundle\Entity\Usuario;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -141,7 +142,7 @@ class DatosIniciales implements FixtureInterface, ContainerAwareInterface
         if ($usuario instanceof UserInterface) {
             $usuario
                 ->setNickname('admin')
-                ->setNombre('Adminsitrador')
+                ->setNombre('Administrador')
                 ->setApellido1('apellido1')
                 //->setPassword($this->container->get('security.password_encoder')->encodePassword($usuario, 'admin'))
                 ->setPassword('admin')
@@ -151,7 +152,26 @@ class DatosIniciales implements FixtureInterface, ContainerAwareInterface
 
             $manager->persist($usuario);
         }
+        $locales = [
+            [3,"Bar Calero",38.040664, -4.051243,0,953505050,"Andújar","Jaén",23740,1]
 
+        ];
+
+        foreach($locales as $local) {
+            $localnuevo = new Local();
+
+            $localnuevo->setPropietario($usuario)
+                       ->setNombre($local[1])
+                       ->setLatitud($local[2])
+                       ->setLongitud($local[3])
+                        ->setPuntuacion($local[4])
+                        ->setTelefono($local[5])
+                        ->setLocalidad($local[6])
+                        ->setProvincia($local[7])
+                        ->setCp($local[8])
+                        ->setActivo($local[9]);
+            $manager->persist($localnuevo);
+        }
         
         $manager->flush();
     }
