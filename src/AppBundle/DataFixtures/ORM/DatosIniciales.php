@@ -3,8 +3,11 @@
 namespace AppBundle\DataFixtures\ORM;
 
 
+use AppBundle\Entity\Articulo;
 use AppBundle\Entity\Comentario;
 use AppBundle\Entity\Local;
+use AppBundle\Entity\Menu;
+use AppBundle\Entity\Tipo;
 use AppBundle\Entity\Usuario;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -203,7 +206,105 @@ class DatosIniciales implements FixtureInterface, ContainerAwareInterface
         $comentario3 = new Comentario();
         $comentario3->setLocal($local1)->setTexto("Muy buenas tapas");
         $manager->persist($comentario3);
+        
+        $menu1= new Menu();
+        $menu1->setEstablecimiento($local1)->setNombre("Menu Calero")->setPrecio(4,5)->setDescripcion("Menu diario");
+        $manager->persist($menu1);
 
+        $menu2= new Menu();
+        $menu2->setEstablecimiento($local2)->setNombre("Menu Pacos")->setPrecio(7)->setDescripcion("Menu diario");
+        $manager->persist($menu2);
+
+        $tipo1=new Tipo();
+        $tipo1->setPlato("Primer Plato");
+        $manager->persist($tipo1);
+
+        $tipo2=new Tipo();
+        $tipo2->setPlato("Segundo Plato");
+        $manager->persist($tipo2);
+
+        $tipo3=new Tipo();
+        $tipo3->setPlato("Postre");
+        $manager->persist($tipo3);
+
+        $tipo4=new Tipo();
+        $tipo4->setPlato("Bebida");
+        $manager->persist($tipo4);
+        
+        //Menu del local1 
+        $articulo1_1 =new Articulo();
+        $articulo1_1->setDescripcion("Refresco")->setTipo($tipo4)->setMenu($menu1)->setNombre('Refresco');
+        $manager->persist($articulo1_1);
+
+        $articulo1_2 =new Articulo();
+        $articulo1_2->setDescripcion("Cerveza")->setTipo($tipo4)->setMenu($menu1)->setNombre("Cerveza");
+        $manager->persist($articulo1_2);
+
+        $articulo1_3 =new Articulo();
+        $articulo1_3->setDescripcion("Agua")->setTipo($tipo4)->setMenu($menu1)->setNombre("Agua");
+        $manager->persist($articulo1_3);
+
+        $articulo1_4 =new Articulo();
+        $articulo1_4->setDescripcion("Pescado")->setTipo($tipo1)->setMenu($menu1)->setNombre("Pescado");
+        $manager->persist($articulo1_4);
+
+        $articulo1_5 =new Articulo();
+        $articulo1_5->setDescripcion("Carne")->setTipo($tipo1)->setMenu($menu1)->setNombre("Carne");
+        $manager->persist($articulo1_5);
+
+        $articulo1_6 =new Articulo();
+        $articulo1_6->setDescripcion("Arroz")->setTipo($tipo2)->setMenu($menu1)->setNombre("Arroz");
+        $manager->persist($articulo1_6);
+
+        $articulo1_7 =new Articulo();
+        $articulo1_7->setDescripcion("Pasta")->setTipo($tipo2)->setMenu($menu1)->setNombre("Pasta");
+        $manager->persist($articulo1_7);
+
+        $articulo1_8 =new Articulo();
+        $articulo1_8->setDescripcion("Flan")->setTipo($tipo3)->setMenu($menu1)->setNombre("Flan");
+        $manager->persist($articulo1_8);
+
+        $articulo1_9 =new Articulo();
+        $articulo1_9->setDescripcion("Cafe")->setTipo($tipo3)->setMenu($menu1)->setNombre("Cafe");
+        $manager->persist($articulo1_9);
+
+        //Menu del local2 
+        $articulo2_1 =new Articulo();
+        $articulo2_1->setDescripcion("Refresco")->setTipo($tipo4)->setMenu($menu2)->setNombre("Refersco");
+        $manager->persist($articulo2_1);
+
+        $articulo2_2 =new Articulo();
+        $articulo2_2->setDescripcion("Vino")->setTipo($tipo4)->setMenu($menu2)->setNombre("Vino");
+        $manager->persist($articulo2_2);
+
+        $articulo2_3 =new Articulo();
+        $articulo2_3->setDescripcion("Agua")->setTipo($tipo4)->setMenu($menu2)->setNombre("Agua");
+        $manager->persist($articulo2_3);
+
+        $articulo2_4 =new Articulo();
+        $articulo2_4->setDescripcion("Pescado")->setTipo($tipo1)->setMenu($menu2)->setNombre("Pescado");
+        $manager->persist($articulo2_4);
+
+        $articulo2_5 =new Articulo();
+        $articulo2_5->setDescripcion("Carne")->setTipo($tipo1)->setMenu($menu2)->setNombre("Carne");
+        $manager->persist($articulo2_5);
+
+        $articulo2_6 =new Articulo();
+        $articulo2_6->setDescripcion("Tortilla")->setTipo($tipo2)->setMenu($menu2)->setNombre("Tortilla");
+        $manager->persist($articulo2_6);
+
+        $articulo2_7 =new Articulo();
+        $articulo2_7->setDescripcion("Pasta")->setTipo($tipo2)->setMenu($menu2)->setNombre("Pasta");
+        $manager->persist($articulo2_7);
+
+        $articulo2_8 =new Articulo();
+        $articulo2_8->setDescripcion("Tarta")->setTipo($tipo3)->setMenu($menu2)->setNombre("Tarta");
+        $manager->persist($articulo2_8);
+
+        $articulo2_9 =new Articulo();
+        $articulo2_9->setDescripcion("Cafe")->setTipo($tipo3)->setMenu($menu2)->setNombre("Cafe");
+        $manager->persist($articulo2_9);
+        
         $manager->flush();
     }
 
