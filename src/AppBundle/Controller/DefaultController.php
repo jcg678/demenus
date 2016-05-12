@@ -5,6 +5,8 @@ namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Doctrine\ORM\EntityRepository;
+use AppBundle\Entity\Local;
 
 class DefaultController extends Controller
 {
@@ -18,4 +20,28 @@ class DefaultController extends Controller
             'base_dir' => realpath($this->container->getParameter('kernel.root_dir').'/..'),
         ));
     }
+
+    /**
+     * @Route("/locales", name="locales")
+     */
+    public function localesAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        /**
+         * @var EntityRepository $localesRepository
+         */
+
+        $localesRepository = $em->getRepository('AppBundle:Local');
+
+        $locales = $localesRepository->findAll();
+
+
+        return $this->render(':default:listadolocales.html.twig', [
+            'locales'=>$locales,
+            
+        ]);
+
+    }
+    
 }

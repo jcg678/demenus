@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <tbody>
+    {% for local in locales %}
+        <tr>
+            <td>{{ local.nombre }}</a> </td>
+
+        </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+{% endblock %}
+
+{% block stylesheets %}
+
+{% endblock %}
