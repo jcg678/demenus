@@ -4,8 +4,8 @@
     <tbody>
     {% for local in locales %}
         <tr>
-            <td>{{ local.nombre }}</a> </td>
-
+            <td>{{ local.nombre }} </td>
+            <td>{{ local.propietario.nombre }} </td>
         </tr>
     {% endfor %}
     </tbody>
