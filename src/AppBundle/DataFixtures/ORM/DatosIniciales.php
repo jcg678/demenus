@@ -140,22 +140,33 @@ class DatosIniciales implements FixtureInterface, ContainerAwareInterface
         }
         */
 
+        $userManager = $this->container->get('fos_user.user_manager');
+        $user = $userManager->createUser();
+        $user->setUsername('admin');
+        $user->setEmail('admin@domain.com');
+        $user->setPassword($this->container->get('security.password_encoder')->encodePassword($user, 'admin'));
+        $user->setEnabled(true);
+        $user->setRoles(array('ROLE_ADMIN'));
+        $userManager->updateUser($user, true);
 
-        $usuario1 = new Usuario();
+        $userManager = $this->container->get('fos_user.user_manager');
+        $usuario2 = $userManager->createUser();
+        $usuario2->setUsername('pepe');
+        $usuario2->setEmail('pepe@domain.com');
+        $usuario2->setPassword($this->container->get('security.password_encoder')->encodePassword($usuario2, 'pepe'));
+        $usuario2->setEnabled(true);
+        $usuario2->setRoles(array('ROLE_CLIENTE'));
+        $userManager->updateUser($usuario2, true);
 
-        if ($usuario1 instanceof UserInterface) {
-            $usuario1
-                ->setNickname('admin')
-                ->setNombre('Administrador')
-                ->setApellido1('apellido1')
-                //->setPassword($this->container->get('security.password_encoder')->encodePassword($usuario, 'admin'))
-                ->setPassword('admin')
-                ->setAdministrador(true)
-                ->setCliente(false);
-
-
-            $manager->persist($usuario1);
-        }
+        $userManager = $this->container->get('fos_user.user_manager');
+        $usuario3 = $userManager->createUser();
+        $usuario3->setUsername('paco');
+        $usuario3->setEmail('paco@domain.com');
+        $usuario3->setPassword($this->container->get('security.password_encoder')->encodePassword($usuario3, 'paco'));
+        $usuario3->setEnabled(true);
+        $usuario3->setRoles(array('ROLE_CLIENTE'));
+        $userManager->updateUser($usuario3, true);
+        /*
 
         $usuario2 = new Usuario();
 
@@ -186,7 +197,7 @@ class DatosIniciales implements FixtureInterface, ContainerAwareInterface
 
             $manager->persist($usuario3);
         }
-
+        */
         $local1 = new Local();
          $local1->setPropietario($usuario2)->setNombre("Bar Calero")->setLongitud(38.040664)->setLatitud(-4.051243)
          ->setPuntuacion(0)->setTelefono(953505050)->setLocalidad("Andújar")->setProvincia("Jaén")->setCp(23740)->setActivo(1);
