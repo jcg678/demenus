@@ -25,6 +25,7 @@ class Usuario extends BaseUser
     {
         parent::__construct();
         // your own logic
+        array_push($this->roles, 'ROLE_CLIENTE');
     }
 
    
