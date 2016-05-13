@@ -5,39 +5,42 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Validation;
+use FOS\UserBundle\Model\User as BaseUser;
 
 /**
  * @ORM\Entity
+ * @ORM\Table(name="fos_user")
  */
-class Usuario implements UserInterface
+class Usuario extends BaseUser
 {
     /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
+     * @ORM\Id
      * @ORM\Column(type="integer")
-     * @var integer
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
+
+
+    public function __construct()
+    {
+        parent::__construct();
+        // your own logic
+    }
+
+   
+
+
 
     /**
-     * @ORM\Column(type="string")
-     * @Validation\NotBlank()
-     * @var string
-     */
-    private $nickname;
-
-
-
-    /**
-     * @ORM\Column(type="string")
-     * @Validation\NotBlank()
+     
+     * @ORM\Column(type="string",nullable=true)
      * @var string
      */
     private $nombre;
 
     /**
-     * @ORM\Column(type="string")
-     * @Validation\NotBlank()
+     
+     * @ORM\Column(type="string",nullable=true)
      * @var string
      */
     private $apellido1;
@@ -49,23 +52,6 @@ class Usuario implements UserInterface
     private $apellido2;
 
 
-    /**
-     * @ORM\Column(type="string")
-     * @var string
-     */
-    private $password;
-
-    /**
-     * @ORM\Column(type="boolean")
-     * @var bool
-     */
-    private $administrador;
-
-    /**
-     * @ORM\Column(type="boolean")
-     * @var bool
-     */
-    private $cliente;
 
 
     /**
@@ -74,182 +60,29 @@ class Usuario implements UserInterface
     protected $local;
 
 
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->tareas = new \Doctrine\Common\Collections\ArrayCollection();
-    }
+
 
     /**
-     * Get id
+     * Set nombre
      *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set nombreUsuario
-     *
-     * @param string $nombreUsuario
+     * @param string $nombre
      * @return Usuario
      */
-    public function setNombreUsuario($nombreUsuario)
+    public function setNombre($nombre)
     {
-        $this->nombreUsuario = $nombreUsuario;
+        $this->nombre = $nombre;
 
         return $this;
     }
 
     /**
-     * Get nombreUsuario
+     * Get nombre
      *
-     * @return string
+     * @return string 
      */
-    public function getNombreUsuario()
+    public function getNombre()
     {
-        return $this->nombreUsuario;
-    }
-
-    /**
-     * Set claveEntrada
-     *
-     * @param string $claveEntrada
-     * @return Usuario
-     */
-    public function setPassword($claveEntrada)
-    {
-        $this->password= $claveEntrada;
-
-        return $this;
-    }
-
-    /**
-     * Get claveEntrada
-     *
-     * @return string
-     */
-    public function getPassword()
-    {
-        return $this->password;
-    }
-
-    /**
-     * Set administrador
-     *
-     * @param boolean $administrador
-     * @return Usuario
-     */
-    public function setAdministrador($administrador)
-    {
-        $this->administrador = $administrador;
-
-        return $this;
-    }
-
-    /**
-     * Get administrador
-     *
-     * @return boolean
-     */
-    public function isAdministrador()
-    {
-        return $this->administrador;
-    }
-
-    /**
-     * Set gestor
-     *
-     * @param boolean $gestor
-     * @return Usuario
-     */
-    public function setCliente($cliente)
-    {
-        $this->cliente = $cliente;
-
-        return $this;
-    }
-
-
-
-
-    public function isCliente()
-    {
-        return $this->cliente;
-    }
-
-
-
-
-
-
-
-    /**
-     * Returns the roles granted to the user.
-     *
-     * <code>
-     * public function getRoles()
-     * {
-     *     return array('ROLE_USER');
-     * }
-     * </code>
-     *
-     * Alternatively, the roles might be stored on a ``roles`` property,
-     * and populated in any number of different ways when the user object
-     * is created.
-     *
-     * @return (Role|string)[] The user roles
-     */
-    public function getRoles()
-    {
-        $roles = ['ROLE_USER'];
-        if($this->isAdministrador()){
-            $roles[] = 'ROLE_ADMIN';
-        }
-        if($this->isCliente()){
-            $roles[]='ROLE_CLIENTE';
-        }
-
-        return $roles;
-    }
-
-
-
-    /**
-     * Returns the salt that was originally used to encode the password.
-     *
-     * This can return null if the password was not encoded using a salt.
-     *
-     * @return string|null The salt
-     */
-    public function getSalt()
-    {
-        return null;
-    }
-
-    /**
-     * Returns the username used to authenticate the user.
-     *
-     * @return string The username
-     */
-    public function getUsername()
-    {
-        $this->getNombreUsuario();
-    }
-
-    /**
-     * Removes sensitive data from the user.
-     *
-     * This is important if, at any given point, sensitive information like
-     * the plain-text password is stored on this object.
-     */
-    public function eraseCredentials()
-    {
-
+        return $this->nombre;
     }
 
     /**
@@ -299,32 +132,12 @@ class Usuario implements UserInterface
     }
 
     /**
-     * Get administrador
-     *
-     * @return boolean 
-     */
-    public function getAdministrador()
-    {
-        return $this->administrador;
-    }
-
-    /**
-     * Get cliente
-     *
-     * @return boolean 
-     */
-    public function getCliente()
-    {
-        return $this->cliente;
-    }
-
-    /**
      * Set local
      *
-     * @param Local $local
+     * @param \AppBundle\Entity\Local $local
      * @return Usuario
      */
-    public function setLocal(Local $local = null)
+    public function setLocal(\AppBundle\Entity\Local $local = null)
     {
         $this->local = $local;
 
@@ -334,56 +147,10 @@ class Usuario implements UserInterface
     /**
      * Get local
      *
-     * @return Local
+     * @return \AppBundle\Entity\Local 
      */
     public function getLocal()
     {
         return $this->local;
-    }
-
-    /**
-     * Set nickname
-     *
-     * @param string $nickname
-     * @return Usuario
-     */
-    public function setNickname($nickname)
-    {
-        $this->nickname = $nickname;
-
-        return $this;
-    }
-
-    /**
-     * Get nickname
-     *
-     * @return string 
-     */
-    public function getNickname()
-    {
-        return $this->nickname;
-    }
-
-    /**
-     * Set nombre
-     *
-     * @param string $nombre
-     * @return Usuario
-     */
-    public function setNombre($nombre)
-    {
-        $this->nombre = $nombre;
-
-        return $this;
-    }
-
-    /**
-     * Get nombre
-     *
-     * @return string 
-     */
-    public function getNombre()
-    {
-        return $this->nombre;
     }
 }
