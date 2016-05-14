@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <tbody>
+
+        <tr>
+            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+            <td>Conectado como {{ app.user.username }} </td>
+            <a href="{{ path('fos_user_profile_show') }}">
+                Mi Cuenta </a>
+
+
+                <a href="{{ path('fos_user_change_password') }}">
+                    Cambiar Contraseña </a>
+
+
+                <a title="Cerrar sesión" href="{{ path('fos_user_security_logout') }}">
+                     {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+                </a>
+            {% endif %}
+        </tr>
+
+    </tbody>
+    </table>
+{% endblock %}
+
+{% block stylesheets %}
+
+{% endblock %}

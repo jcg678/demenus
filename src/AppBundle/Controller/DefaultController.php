@@ -43,5 +43,21 @@ class DefaultController extends Controller
         ]);
 
     }
+
+    /**
+     * @Route("/usuario", name="menu")
+     */
+    public function menuAction(Request $request)
+    {
+       
+
+
+        return $this->render(':usuario:usuario_menu.html.twig'
+            
+
+        );
+
+    }
+    
     
 }
