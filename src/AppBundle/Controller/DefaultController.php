@@ -16,14 +16,20 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $authChecker = $this->container->get('security.authorization_checker');
-        $router = $this->container->get('router');
-        // replace this example code with whatever you need
-        if ($authChecker->isGranted('ROLE_ADMIN')) {
-            return new RedirectResponse($router->generate('locales'), 307);
-        }
-        if ($authChecker->isGranted('ROLE_CLIENTE')) {
-            return new RedirectResponse($router->generate('usuario_menu'), 307);
+        $session = $request->getSession();
+
+        if (false === $session->has('_security.main.target_path')) {
+            $authChecker = $this->container->get('security.authorization_checker');
+            $router = $this->container->get('router');
+            // replace this example code with whatever you need
+            if ($authChecker->isGranted('ROLE_ADMIN')) {
+                return $this->redirectToRoute('locales');
+            }
+            if ($authChecker->isGranted('ROLE_CLIENTE')) {
+                return $this->redirectToRoute('usuario_menu');
+            }
+        } else {
+            return new RedirectResponse($session->get('_security.main.target_path'));
         }
 
 
