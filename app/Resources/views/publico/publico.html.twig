@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<h1>Parte Pública</h1>
+{% endblock %}
+
+{% block stylesheets %}
+<a href="{{ path("fos_user_security_login") }}" >
+    Logueate</a>
+
+    <a href="{{ path("fos_user_registration_register") }}" >
+        Registrate</a>
+
+
+{% endblock %}
