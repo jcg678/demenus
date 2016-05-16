@@ -17,6 +17,8 @@ class DefaultController extends Controller
     {
         // replace this example code with whatever you need
 
+
+
         return $this->render(':publico:publico.html.twig'
 
 
@@ -43,7 +45,7 @@ class DefaultController extends Controller
         $locales = $localesRepository->findAll();
 
 
-        return $this->render(':default:listadolocales.html.twig', [
+        return $this->render(':admin:listadolocales.html.twig', [
             'locales'=>$locales,
             
         ]);
