@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Form\Type\LocalType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -99,14 +100,40 @@ class DefaultController extends Controller
             ->getQuery()
             ->getResult();
 
-         if(empty($local)){
+         /*if(empty($local)){
              return $this->render(':publico:publico.html.twig');
-         }
+         }*/
         return $this->render('usuario/local.html.twig', [
             'local' => $local
 
         ]);
     }
 
-    
+    /**
+     * @Route("/registrarlocal", name="registrolocal")
+     */
+
+    public function addLocal(Request $request)
+    {
+
+        $local = new local();
+
+        $form = $this->createForm(LocalType::class, $local);
+
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($local);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('usuario_menu'));
+        }
+
+        return $this->render('usuario/localform.html.twig', array(
+            'form' => $form->createView()
+
+        ));
+    }
 }

@@ -1,15 +1,18 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-
+    {% if local %}
 {{ local[0].nombre }}<br>
     {{ local[0].puntuacion }}<br>
     {{ local[0].telefono }}<br>
     {{ local[0].cp }}<br>
     {{ local[0].localidad }}<br>
     {{ local[0].provincia }}<br>
+    {% else %}
+        <h2>No hay Local</h2>
+        <a href="{{ path('registrolocal') }}" class="btn btn-default btn-sm"><i class="fa fa-fast-forward"></i> Proceder con el registro</a>
+    {% endif %}
+
+
 {% endblock %}
 
-{% block stylesheets %}
-
-{% endblock %}
