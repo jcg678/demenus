@@ -5,7 +5,7 @@
 
         <tr>
             {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-            <td>Conectado como {{ app.user.username }} </td>
+            <td>Conectado como {{ app.user.username }} {{ app.user.id }}</td>
             <a href="{{ path('fos_user_profile_show') }}">
                 Mi Cuenta </a>
 
@@ -17,6 +17,9 @@
                 <a title="Cerrar sesión" href="{{ path('fos_user_security_logout') }}">
                      {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
                 </a>
+
+                <a href="{{ path('local',{'propietario': app.user.id}) }}">
+                    Mi Local</a>
             {% endif %}
         </tr>
 

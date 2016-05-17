@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityRepository;
 use AppBundle\Entity\Local;
+use AppBundle\Entity\Usuario;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class DefaultController extends Controller
@@ -77,6 +78,33 @@ class DefaultController extends Controller
         );
 
     }
-    
+
+
+   /**
+  * @Route("/local/{propietario}", name="local")
+    */
+    public function plantillaAction(Usuario $propietario)
+    {
+        /**
+        * @var EntityRepository
+         */
+        $localesRepository = $this->getDoctrine()->getEntityManager()
+            ->getRepository('AppBundle:Local');
+
+
+        $local = $localesRepository
+            ->createQueryBuilder('l')
+            ->where('l.propietario = :prop')
+            ->setParameter('prop', $propietario)
+            ->getQuery()
+            ->getResult();
+
+
+        return $this->render('usuario/local.html.twig', [
+            'local' => $local
+
+        ]);
+    }
+
     
 }
