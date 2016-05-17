@@ -99,7 +99,9 @@ class DefaultController extends Controller
             ->getQuery()
             ->getResult();
 
-
+         if(empty($local)){
+             return $this->render(':publico:publico.html.twig');
+         }
         return $this->render('usuario/local.html.twig', [
             'local' => $local
 
