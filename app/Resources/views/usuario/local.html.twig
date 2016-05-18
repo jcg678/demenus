@@ -10,7 +10,7 @@
     {{ local[0].provincia }}<br>
     {% else %}
         <h2>No hay Local</h2>
-        <a href="{{ path('registrolocal') }}" class="btn btn-default btn-sm"><i class="fa fa-fast-forward"></i> Proceder con el registro</a>
+        <a href="{{ path('registrolocal',{'usuario': app.user.id}) }}" class="btn btn-default btn-sm"><i class="fa fa-fast-forward"></i> Proceder con el registro</a>
     {% endif %}
 
 

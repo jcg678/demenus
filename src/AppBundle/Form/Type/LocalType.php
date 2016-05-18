@@ -15,10 +15,11 @@ class LocalType extends AbstractType
     {
         $builder
             ->add('nombre')
-            ->add('latitud')
             ->add('longitud')
+            ->add('latitud')
             ->add('localidad')
             ->add('provincia')
+            ->add('telefono')
             ->add('cp')
             ->add('guardar', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', [
                 'attr' => [

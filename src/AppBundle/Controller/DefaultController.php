@@ -110,10 +110,10 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/registrarlocal", name="registrolocal")
+     * @Route("/registrarlocal/{usuario}", name="registrolocal")
      */
 
-    public function addLocal(Request $request)
+    public function addLocal(Request $request, Usuario $usuario)
     {
 
         $local = new local();
@@ -121,9 +121,12 @@ class DefaultController extends Controller
         $form = $this->createForm(LocalType::class, $local);
 
         $form->handleRequest($request);
-
+        
         if ($form->isValid()) {
-
+            
+            $local->setPuntuacion(0);
+            $local->setActivo(false);
+            $local->setPropietario($usuario);
             $em = $this->getDoctrine()->getManager();
             $em->persist($local);
             $em->flush();
