@@ -156,4 +156,47 @@ class DefaultController extends Controller
                         'form' => $form->createView()
                        ]);
     }
+
+
+    /**
+     * @Route("/menus/{propietario}", name="menus")
+     */
+
+    public function menusAction(Usuario $propietario)
+    {
+        /**
+         * @var EntityRepository
+         */
+        $localesRepository = $this->getDoctrine()->getEntityManager()
+            ->getRepository('AppBundle:Local');
+
+
+        $local = $localesRepository
+            ->createQueryBuilder('l')
+            ->where('l.propietario = :prop')
+            ->setParameter('prop', $propietario)
+            ->getQuery()
+            ->getResult();
+
+        $menusRepository = $this->getDoctrine()->getEntityManager()
+            ->getRepository('AppBundle:Menu');
+
+
+        $menus = $menusRepository
+            ->createQueryBuilder('l')
+            ->where('l.establecimiento = :prop')
+            ->setParameter('prop', $local)
+            ->getQuery()
+            ->getResult();
+
+
+
+        /*if(empty($local)){
+            return $this->render(':publico:publico.html.twig');
+        }*/
+        return $this->render('usuario/menu.html.twig', [
+            'menus' => $menus
+
+        ]);
+    }
 }
