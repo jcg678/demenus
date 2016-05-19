@@ -37,9 +37,7 @@ class DefaultController extends Controller
 
         return $this->render(':publico:publico.html.twig');
 
-        /*return $this->render('default/index.html.twig', array(
-            'base_dir' => realpath($this->container->getParameter('kernel.root_dir').'/..'),
-        ));*/
+
     }
 
     /**
@@ -70,13 +68,7 @@ class DefaultController extends Controller
      */
     public function menuAction(Request $request)
     {
-       
-
-
-        return $this->render(':usuario:usuario_menu.html.twig'
-            
-
-        );
+        return $this->render(':usuario:usuario_menu.html.twig');
 
     }
 
@@ -116,6 +108,7 @@ class DefaultController extends Controller
     public function addLocal(Request $request, Usuario $usuario)
     {
 
+
         $local = new local();
 
         $form = $this->createForm(LocalType::class, $local);
@@ -138,5 +131,29 @@ class DefaultController extends Controller
             'form' => $form->createView()
 
         ));
+    }
+
+    /**
+     * @Route("/modificarlocal/{local}", name="modificarlocal")
+     */
+    public function formAction(Local $local, Request $request)
+   {
+
+        $form = $this->createForm('AppBundle\Form\Type\LocalType', $local);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $user=$local->getPropietario();
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirect($this->generateUrl('local',array('propietario' => $user->getId())));
+        }
+
+        return $this->render(':usuario:localform.html.twig',
+                [
+                        'form' => $form->createView()
+                       ]);
     }
 }
