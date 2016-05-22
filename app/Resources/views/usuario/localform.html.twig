@@ -1,7 +1,102 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    {{ form(form) }}
 
+
+
+
+<div class="col-md-12">
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+
+    <div class="row">
+        <div class="col-md-12">
+            {{ form_row(form.nombre) }}
+        </div>
+        <div class="col-md-12">
+            {{ form_row(form.longitud) }}
+        </div>
+        <div class="col-md-12">
+            {{ form_row(form.latitud) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-10">
+    <h2>Geolocalización</h2></div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8"><input id="address" type="textbox" Placeholder="Dirección..." class="form-control"></div>
+                <div class="col-md-2"><input id="submit" type="button" value="Localizar" class="btn btn-primary"></div>
+            </div>
+        </div>
+    </div><!-- row -->
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <div id="map2"></div>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+
+    {{ form_rest(form) }}
+    {{ form_row(form.guardar) }}
+    {{ form_end(form) }}
+
+    <script>
+        function initMap() {
+            var map = new google.maps.Map(document.getElementById('map2'), {
+                zoom: 8,
+                center: {lat: 37.7795941, lng: -3.7849056999999675}
+            });
+
+            var geocoder = new google.maps.Geocoder();
+
+            document.getElementById('submit').addEventListener('click', function() {
+                geocodeAddress(geocoder, map);
+            });
+        }
+
+        function geocodeAddress(geocoder, resultsMap) {
+            var address = document.getElementById('address').value;
+            geocoder.geocode({'address': address}, function(results, status) {
+                if (status === google.maps.GeocoderStatus.OK) {
+                    resultsMap.setCenter(results[0].geometry.location);
+                    var marker = new google.maps.Marker({
+                        map: resultsMap,
+                        draggable:true,
+                        position: results[0].geometry.location
+                    });
+                    document.getElementById("local_longitud").value=marker.getPosition().lng();
+                    document.getElementById("local_latitud").value=marker.getPosition().lat();
+                    var infowindow = new google.maps.InfoWindow({
+                        content: '<p>Localización: ' + marker.getPosition() + '</p>',
+                        draggable:true,
+                        maxWidth: 200
+                    });
+                    marker.addListener('click', function() {
+                        document.getElementById("local_longitud").value=marker.getPosition().lng();
+                        document.getElementById("local_latitud").value=marker.getPosition().lat();
+                        infowindow.open(resultsMap, marker);
+                    });
+                    marker.addListener('dragend', function() {
+                        document.getElementById("local_longitud").value=marker.getPosition().lng();
+                        document.getElementById("local_latitud").value=marker.getPosition().lat();
+                        infowindow.setContent('Localización: ' + marker.getPosition() + 'DOR');
+                        infowindow.open(resultsMap, marker);
+                    });
+
+                } else {
+                    alert('No se pudo localizar el lugar, motivo : ' + status);
+                }
+            });
+        }
+
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDOPiuIXZzv__WGIHgdZHjUO4gq_sf_LUQ&callback=initMap"
+            type="text/javascript"></script>
 {% endblock %}
 
