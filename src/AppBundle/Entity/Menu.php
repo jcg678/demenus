@@ -32,7 +32,7 @@ class Menu
     private $precio;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="text")
      * @Validation\NotBlank()
      * @var string
      */

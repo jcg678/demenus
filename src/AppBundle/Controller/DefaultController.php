@@ -3,12 +3,14 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Form\Type\LocalType;
+use AppBundle\Form\Type\MenuType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityRepository;
 use AppBundle\Entity\Local;
 use AppBundle\Entity\Usuario;
+use AppBundle\Entity\Menu;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class DefaultController extends Controller
@@ -195,8 +197,39 @@ class DefaultController extends Controller
             return $this->render(':publico:publico.html.twig');
         }*/
         return $this->render('usuario/menu.html.twig', [
-            'menus' => $menus
-
+            'menus' => $menus,
+            'local' => $local
         ]);
     }
+
+    /**
+     * @Route("/registrarmenu/{local}", name="registromenu")
+     */
+
+    public function addMenu(Request $request, Local $local)
+    {
+        $user =$this->getUser();
+
+
+        $menu = new menu();
+
+        $form = $this->createForm(new MenuType(), $menu);
+
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $menu->setEstablecimiento($local);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($menu);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('menus',array('propietario'=>$user->getId())));
+        }
+
+        return $this->render('usuario/menuform.html.twig', array(
+            'form' => $form->createView()
+
+        ));
+    }
+
 }

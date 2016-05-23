@@ -1,16 +1,27 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    {% if menus %}
-{{ menus[0].nombre }}<br>
 
-    {{ menus[0].precio }}<br>
 
+    {% if local %}
+        <table>
+            {% for menu in menus %}
+                <tr>
+                    <td>{{ menu.nombre }}</td>
+
+                    <td>{{ menu.precio }}</td>
+                    <td>{{ menu.descripcion }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+        <a href="{{ path('registromenu',{'local': local[0].id}) }}" class="btn btn-default btn-sm"><i
+                    class="fa fa-fast-forward"></i> Añadir Menú</a>
 
 
     {% else %}
         <h2>No hay Local</h2>
-        <a href="{{ path('registrolocal',{'usuario': app.user.id}) }}" class="btn btn-default btn-sm"><i class="fa fa-fast-forward"></i> Proceder con el registro</a>
+        <a href="{{ path('registrolocal',{'usuario': app.user.id}) }}" class="btn btn-default btn-sm"><i
+                    class="fa fa-fast-forward"></i> Proceder con el registro</a>
     {% endif %}
 
 
