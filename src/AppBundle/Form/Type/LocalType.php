@@ -15,8 +15,8 @@ class LocalType extends AbstractType
     {
         $builder
             ->add('nombre')
-            ->add('longitud')
-            ->add('latitud')
+            ->add('longitud','Symfony\Component\Form\Extension\Core\Type\TextType')
+            ->add('latitud','Symfony\Component\Form\Extension\Core\Type\TextType')
             ->add('localidad')
             ->add('provincia')
             ->add('telefono')
@@ -34,7 +34,7 @@ class LocalType extends AbstractType
                     'attr' => [
                         'class' => "btn-danger"
                     ],
-                    'label' => 'Borrar partido'
+                    'label' => 'Borrar '
                 ]);
         }
     }
