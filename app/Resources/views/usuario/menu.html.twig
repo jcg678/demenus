@@ -8,9 +8,9 @@
             {% for menu in menus %}
                 <tr>
                     <td>{{ menu.nombre }}</td>
-
                     <td>{{ menu.precio }}</td>
                     <td>{{ menu.descripcion }}</td>
+                    <td><a href="{{ path('modificarmenu',{'menu': menu.id}) }}" class="btn btn-default btn-sm"></i>Editar Menú</a></td>
                 </tr>
             {% endfor %}
         </table>

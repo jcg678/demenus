@@ -232,4 +232,29 @@ class DefaultController extends Controller
         ));
     }
 
+
+    /**
+     * @Route("/modificarmenu/{menu}", name="modificarmenu")
+     */
+    public function formmenu(Menu $menu, Request $request)
+    {
+        $user =$this->getUser();
+        $form = $this->createForm('AppBundle\Form\Type\MenuType', $menu);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirect($this->generateUrl('menus',array('propietario'=>$user->getId())));
+        }
+
+        return $this->render(':usuario:menuform.html.twig',
+            [
+                'form' => $form->createView()
+            ]);
+    }
+
 }
