@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+
+    {% if articulos %}
+        <table>
+            {% for articulo in articulos %}
+                <tr>
+                    <td>{{ articulo.nombre }}</td>
+                    <td>{{ articulo.descripcion }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+        <a href="" class="btn btn-default btn-sm"><i
+                    class="fa fa-fast-forward"></i> Añadir Articulo</a>
+
+
+    {% else %}
+        <h2>No hay articulo</h2>
+        <a href="" class="btn btn-default btn-sm"><i
+                    class="fa fa-fast-forward"></i> Añadir Articulo</a>
+    {% endif %}
+
+
+{% endblock %}
+

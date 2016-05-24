@@ -257,4 +257,33 @@ class DefaultController extends Controller
             ]);
     }
 
+
+    /**
+     * @Route("/articulos/{menu}", name="mostrararticulo")
+     */
+
+    public function addArticuloRequest (Request $request, Menu $menu)
+    {
+        /**
+         * @var EntityRepository
+         */
+        $articulosRepository = $this->getDoctrine()->getEntityManager()
+            ->getRepository('AppBundle:Articulo');
+
+
+        $articulos = $articulosRepository
+            ->createQueryBuilder('a')
+            ->where('a.menu = :men')
+            ->setParameter('men', $menu)
+            ->getQuery()
+            ->getResult();
+
+
+        /*if(empty($local)){
+            return $this->render(':publico:publico.html.twig');
+        }*/
+        return $this->render('usuario/articulos.html.twig', [
+            'articulos' => $articulos
+        ]);
+    }
 }
