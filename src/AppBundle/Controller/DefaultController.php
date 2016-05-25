@@ -2,8 +2,10 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Articulo;
 use AppBundle\Form\Type\LocalType;
 use AppBundle\Form\Type\MenuType;
+use AppBundle\Form\Type\ArticuloType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -262,7 +264,7 @@ class DefaultController extends Controller
      * @Route("/articulos/{menu}", name="mostrararticulo")
      */
 
-    public function addArticuloRequest (Request $request, Menu $menu)
+    public function mostrarArticulos (Request $request, Menu $menu)
     {
         /**
          * @var EntityRepository
@@ -283,7 +285,38 @@ class DefaultController extends Controller
             return $this->render(':publico:publico.html.twig');
         }*/
         return $this->render('usuario/articulos.html.twig', [
-            'articulos' => $articulos
+            'articulos' => $articulos,
+            'menu'=> $menu
         ]);
     }
+
+    /**
+     * @Route("/registrararticulos/{menu}", name="registrararticulo")
+     */
+    public function addArticulo(Request $request, Menu $menu)
+    {
+        $user =$this->getUser();
+
+
+        $articulo = new Articulo();
+
+        $form = $this->createForm(ArticuloType::class, $articulo);
+
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $articulo->setMenu($menu);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($articulo);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('mostrararticulo',array('menu'=>$menu->getId())));
+        }
+
+        return $this->render('usuario/articuloform.html.twig', array(
+            'form' => $form->createView()
+
+        ));
+    }
+    
 }

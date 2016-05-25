@@ -4,21 +4,22 @@
 
 
     {% if articulos %}
-        <table>
+        <table border="3" >
             {% for articulo in articulos %}
-                <tr>
+                <tr >
                     <td>{{ articulo.nombre }}</td>
                     <td>{{ articulo.descripcion }}</td>
+                    <td>{{ articulo.tipo.plato }}</td>
                 </tr>
             {% endfor %}
         </table>
-        <a href="" class="btn btn-default btn-sm"><i
+        <a href="{{ path('registrararticulo',{'menu': menu.id}) }}" class="btn btn-default btn-sm"><i
                     class="fa fa-fast-forward"></i> Añadir Articulo</a>
 
 
     {% else %}
         <h2>No hay articulo</h2>
-        <a href="" class="btn btn-default btn-sm"><i
+        <a href="{{ path('registrararticulo',{'menu': menu.id}) }}" class="btn btn-default btn-sm"><i
                     class="fa fa-fast-forward"></i> Añadir Articulo</a>
     {% endif %}
 

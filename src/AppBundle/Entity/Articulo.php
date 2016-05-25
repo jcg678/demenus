@@ -148,4 +148,6 @@ class Articulo
     {
         return $this->tipo;
     }
+
+   
 }

@@ -106,4 +106,9 @@ class Tipo
     {
         return $this->articulos;
     }
+
+    public function __toString()
+    {
+        return $this->plato;
+    }
 }
