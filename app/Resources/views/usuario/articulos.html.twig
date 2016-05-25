@@ -10,6 +10,8 @@
                     <td>{{ articulo.nombre }}</td>
                     <td>{{ articulo.descripcion }}</td>
                     <td>{{ articulo.tipo.plato }}</td>
+                    <td><a href="{{ path('modificararticulo',{'articulo': articulo.id}) }}" class="btn btn-primary btn-sm">Modificar Articulo</a></td>
+                    <td><a href="{{ path('eliminararticulo',{'articulo': articulo.id}) }}" class="btn btn-danger btn-sm">Eliminar Articulo</a></td>
                 </tr>
             {% endfor %}
         </table>

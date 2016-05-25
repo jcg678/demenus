@@ -277,6 +277,7 @@ class DefaultController extends Controller
             ->createQueryBuilder('a')
             ->where('a.menu = :men')
             ->setParameter('men', $menu)
+            ->orderBy('a.tipo')
             ->getQuery()
             ->getResult();
 
@@ -318,5 +319,51 @@ class DefaultController extends Controller
 
         ));
     }
-    
+
+
+    /**
+     * @Route("/modificararticulo/{articulo}", name="modificararticulo")
+     */
+    public function formarticulo(Articulo $articulo, Request $request)
+    {
+
+        $menu=$articulo->getMenu();
+        $form = $this->createForm('AppBundle\Form\Type\ArticuloType', $articulo,
+            [
+                'nuevo' => false
+            ]
+
+            );
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            if ($form->get('borrar')->isClicked()) {
+                                             $this->getDoctrine()->getManager()->remove($articulo);
+                                                    }
+            
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirect($this->generateUrl('mostrararticulo',array('menu'=>$menu->getId())));
+        }
+
+        return $this->render(':usuario:articuloform.html.twig',
+            [
+                'form' => $form->createView()
+            ]);
+    }
+    /**
+     * @Route("/eliminararticulo/{articulo}", name="eliminararticulo")
+     */
+    public function deleteArticulo(Request $peticion, Articulo $articulo)
+    {
+        $menu=$articulo->getMenu();
+        $em = $this-> getDoctrine()->getManager();
+        $em->remove($articulo);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('mostrararticulo',array('menu'=>$menu->getId())));
+    }
+
 }

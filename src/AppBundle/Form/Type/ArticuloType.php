@@ -20,7 +20,7 @@ class ArticuloType extends AbstractType
             ->add('tipo', EntityType::class, array(
                 'class' => 'AppBundle\Entity\Tipo',
                 'attr' => array('class' => 'form-control'),
-                'required' => false,
+                'required' => true,
                 'multiple' => false,
                 'expanded' => false,
                 'placeholder' => 'Seleccione el tipo'
