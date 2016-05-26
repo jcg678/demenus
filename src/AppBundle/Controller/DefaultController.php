@@ -25,6 +25,7 @@ class DefaultController extends Controller
         $session = $request->getSession();
 
         if (false === $session->has('_security.main.target_path')) {
+
             $authChecker = $this->container->get('security.authorization_checker');
             $router = $this->container->get('router');
             // replace this example code with whatever you need
@@ -32,7 +33,11 @@ class DefaultController extends Controller
                 return $this->redirectToRoute('locales');
             }
             if ($authChecker->isGranted('ROLE_CLIENTE')) {
-                return $this->redirectToRoute('usuario_menu');
+
+
+
+               return $this->redirectToRoute('usuario_menu');
+
             }
         } else {
             return new RedirectResponse($session->get('_security.main.target_path'));
@@ -72,7 +77,26 @@ class DefaultController extends Controller
      */
     public function menuAction(Request $request)
     {
-        return $this->render(':usuario:usuario_menu.html.twig');
+        $user=$this->getUser();
+
+        $localesRepository = $this->getDoctrine()->getEntityManager()
+            ->getRepository('AppBundle:Local');
+
+
+        $local = $localesRepository
+            ->createQueryBuilder('l')
+            ->where('l.propietario = :prop')
+            ->setParameter('prop', $user)
+            ->getQuery()
+            ->getResult();
+
+        $_SESSION['localid']=$local[0]->getId();
+         //return $this->redirect($this->generateUrl('usuario_menu',array('local' => $local[0]->getId())));
+        return $this->render(':usuario:usuario_menu.html.twig', [
+            'local'=>$local,
+
+        ]);
+        //return $this->render(':usuario:usuario_menu.html.twig');
 
     }
 

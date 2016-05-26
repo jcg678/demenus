@@ -17,8 +17,8 @@
         <!-- BEGIN GLOBAL MANDATORY STYLES -->
         <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
         
-        <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-        
+        <link href="{{ asset('font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('css/estilos.css') }}" rel="stylesheet" type="text/css" />
         <link href="{{ asset('css/simple-line-icons.min.css') }}" rel="stylesheet" type="text/css" />
         <link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap.css') }}" />
         <link href="{{ asset('css/bootstrap-switch.min.css') }}" rel="stylesheet" type="text/css" />
@@ -43,7 +43,7 @@
                 <!-- BEGIN LOGO -->
                 <div class="page-logo">
                     <a href="index.html">
-                        <img src="images/logo_trasparente.png" width="95" height="35" alt="logo" class="logo-default" /> </a>
+                        <img src="{{ asset('images/logo_trasparente.png') }}" width="95" height="35" alt="logo" class="logo-default" /> </a>
                     <div class="menu-toggler sidebar-toggler">
                         <span></span>
                     </div>
@@ -65,23 +65,23 @@
                         <li class="dropdown dropdown-user">
                             <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                                 <img alt="" class="img-circle" src="../assets/layouts/layout/img/avatar3_small.jpg" />
-                                <span class="username username-hide-on-mobile"> Nombre </span>
+                                <span class="username username-hide-on-mobile"> {{ app.user.username }} </span>
                                 <i class="fa fa-angle-down"></i>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-default">
                                 <li>
-                                    <a href="page_user_profile_1.html">
+                                    <a href="{{ path('fos_user_profile_show') }}">
                                         <i class="fa fa-user"></i> Mi Perfil </a>
                                 </li>
                                 <li>
-                                    <a href="app_calendar.html">
+                                    <a href="{{ path('fos_user_change_password') }}">
                                         <i class="fa fa-lock"></i> Cambiar Contraseña </a>
                                 </li>
                                 
                                 <li class="divider"> </li>
                                 
                                 <li>
-                                    <a href="page_user_login_1.html">
+                                    <a href="{{ path('fos_user_security_logout') }}">
                                         <i class="fa fa-sign-out"></i> Salir </a>
                                 </li>
                             </ul>
@@ -146,7 +146,7 @@
                             <!-- END RESPONSIVE QUICK SEARCH FORM -->
                         </li>
                         <li class="nav-item start ">
-                            <a href="javascript:;" class="nav-link nav-toggle">
+                            <a href="{{ path('usuario_menu') }}" class="nav-link nav-toggle">
                                 <i class="fa fa-home" aria-hidden="true"></i>
                                 <span class="title">Inicio</span>
                             </a>
@@ -156,7 +156,7 @@
                             <h3 class="uppercase">Opciones</h3>
                         </li>
                         <li class="nav-item  ">
-                            <a href="javascript:;" class="nav-link nav-toggle">
+                            <a href="{{ path('local',{'propietario': app.user.id}) }}" class="nav-link nav-toggle">
                                 <i class="fa fa-fort-awesome"></i>
                                 <span class="title">Mi local</span>
                                 
@@ -171,13 +171,13 @@
                             </a>
                             <ul class="sub-menu">
                                <li class="nav-item  ">
-                                    <a href="layout_mega_menu_light.html" class="nav-link ">
+                                    <a href="{{ path('menus',{'propietario': app.user.id}) }}" class="nav-link ">
                                        <i class="fa fa-cutlery"></i>
                                         <span class="title">Ver Menús</span>
                                     </a>
                                 </li>
                                 <li class="nav-item  ">
-                                    <a href="layout_mega_menu_light.html" class="nav-link ">
+                                    <a href="{{ path('registromenu',{'local': app.user.id }) }}" class="nav-link ">
                                        <i class="fa fa-plus"></i>
                                         <span class="title">Añadir Menú</span>
                                     </a>
@@ -194,7 +194,7 @@
                             </a>
                         </li>
                         <li class="nav-item  ">
-                            <a href="javascript:;" class="nav-link nav-toggle">
+                            <a href="{{ path('fos_user_security_logout') }}" class="nav-link nav-toggle">
                                 <i class="fa fa-sign-out"></i>
                                 <span class="title">Salir</span>
                                 
@@ -215,17 +215,12 @@
                     <!-- BEGIN PAGE HEADER-->
                     
                     
-                    <!-- BEGIN PAGE TITLE-->
-                    <h3 class="page-title"> Fixed Footer
-                        <small>fixed footer option</small>
-                    </h3>
+
                     {% block body %}
                     {% endblock %}
                     <!-- END PAGE TITLE-->
                     <!-- END PAGE HEADER-->
-                    <div class="note note-info">
-                        <p> To set fixed footer layout just apply <code>page-footer-fixed</code> class to the body element. </p>
-                    </div>
+
                 </div>
                 <!-- END CONTENT BODY -->
             </div>
