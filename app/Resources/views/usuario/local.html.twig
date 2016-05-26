@@ -2,12 +2,20 @@
 
 {% block body %}
     {% if local %}
-{{ local[0].nombre }}<br>
+        <div class="well well-lg"><h1 >{{ local[0].nombre }}</h1></div>
 
-    {{ local[0].telefono }}<br>
-    {{ local[0].cp }}<br>
-    {{ local[0].localidad }}<br>
-    {{ local[0].provincia }}<br>
+        <i class="fa fa-phone"></i>:{{ local[0].telefono }}<br>
+        <i class="fa fa-home"></i>{{ local[0].cp }}<br>
+        <i class="fa fa-home"></i>{{ local[0].localidad }}<br>
+        <i class="fa fa-home"></i>{{ local[0].provincia }}<br>
+        {%   if local[0].activo == 0 %}
+            <a href="{{ path('tooglelocal',{'local': local[0].id}) }}" class="btn btn-success"><i class="fa fa-plus-square"></i>Activar</a><br>
+            (Activalo si quieres que tu local sea públicado en el mapa)<br>
+            {% else %}
+                <a href="{{ path('tooglelocal',{'local': local[0].id}) }}" class="btn btn-danger"><i class="fa fa-plus-square"></i>Desactivar</a><br>
+                (Desactivalo si quieres que tu local no sea públicado en el mapa)<br>
+         {%  endif %}
+
         <a href="{{ path('modificarlocal',{'local': local[0].id}) }}" class="btn btn-default btn-sm"> Modificar  </a>
     {% else %}
         <h2>No hay Local</h2>

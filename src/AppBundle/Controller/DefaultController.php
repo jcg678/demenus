@@ -90,12 +90,11 @@ class DefaultController extends Controller
             ->getQuery()
             ->getResult();
 
-        $_SESSION['localid']=$local[0]->getId();
+        //$_SESSION['localid']=$local[0]->getId();
          //return $this->redirect($this->generateUrl('usuario_menu',array('local' => $local[0]->getId())));
-        return $this->render(':usuario:usuario_menu.html.twig', [
-            'local'=>$local,
+        return $this->render(':usuario:usuario_menu.html.twig'
 
-        ]);
+        );
         //return $this->render(':usuario:usuario_menu.html.twig');
 
     }
@@ -388,6 +387,24 @@ class DefaultController extends Controller
         $em->flush();
 
         return $this->redirect($this->generateUrl('mostrararticulo',array('menu'=>$menu->getId())));
+    }
+
+
+    /**
+     * @Route("/tooglelocal/{local}", name="tooglelocal")
+     */
+
+    public function toogleLocal(Request $request, Local $local)
+    {
+        
+        $cambio=$local->getActivo();
+        $local->setActivo(!$cambio);
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($local);
+        $em->flush();
+        $user=$local->getPropietario();
+        return $this->redirect($this->generateUrl('local',array('propietario' => $user->getId())));
+
     }
 
 }
