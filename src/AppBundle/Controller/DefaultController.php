@@ -407,4 +407,35 @@ class DefaultController extends Controller
 
     }
 
+
+    /**
+     * @Route("/eliminarmenu/{menu}", name="eliminarmenu")
+     */
+    public function deletemenu(Request $peticion, Menu $menu)
+    {
+        $user=$this->getUser();
+        $articulosRepository = $this->getDoctrine()->getEntityManager()
+            ->getRepository('AppBundle:Articulo');
+
+
+        $articulos = $articulosRepository
+            ->createQueryBuilder('a')
+            ->where('a.menu = :men')
+            ->setParameter('men', $menu)
+            ->getQuery()
+            ->getResult();
+
+
+        $em = $this-> getDoctrine()->getManager();
+        for ( $i = 0 ; $i < sizeof($articulos) ; $i ++) {
+            $em->remove($articulos[$i]);
+        }
+
+
+        $em->remove($menu);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('menus',array('propietario'=>$user->getId())));
+    }
+
 }

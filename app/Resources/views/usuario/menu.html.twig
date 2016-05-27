@@ -12,6 +12,7 @@
                     <td>{{ menu.descripcion }}</td>
                     <td><a href="{{ path('modificarmenu',{'menu': menu.id}) }}" class="btn btn-default btn-sm"></i>Editar Menú</a></td>
                     <td><a href="{{ path('mostrararticulo',{'menu': menu.id}) }}" class="btn btn-default btn-sm"></i>Mostrar Articulos</a></td>
+                    <td><a href="{{ path('eliminarmenu',{'menu': menu.id}) }}" class="btn btn-danger btn-sm"></i>Eliminar Menú</a></td>
                 </tr>
             {% endfor %}
         </table>
