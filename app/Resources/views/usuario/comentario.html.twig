@@ -1,0 +1,23 @@
+{% extends 'base_usuario.html.twig' %}
+
+{% block body %}
+
+
+    {% if comentarios %}
+        <h2 class="well-lg">Comentarios</h2>
+        <table>
+            {% for comentario in comentarios %}
+                <tr>
+                    <td>{{ comentario.texto }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+
+
+    {% else %}
+        <h2>No hay Comentarios</h2>
+    {% endif %}
+
+
+{% endblock %}
+

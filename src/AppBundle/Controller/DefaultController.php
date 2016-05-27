@@ -451,4 +451,42 @@ class DefaultController extends Controller
         return $this->redirect($this->generateUrl('menus',array('propietario'=>$user->getId())));
     }
 
+
+
+    /**
+     * @Route("/comentarios/{usuario}", name="vercomentarios")
+     */
+
+    public function vercomentarios(Request $request, Usuario $usuario)
+    {
+        $localesRepository = $this->getDoctrine()->getEntityManager()
+            ->getRepository('AppBundle:Local');
+
+
+        $local = $localesRepository
+            ->createQueryBuilder('l')
+            ->where('l.propietario = :prop')
+            ->setParameter('prop', $usuario)
+            ->getQuery()
+            ->getResult();
+
+        if(empty($local)){
+            return $this->redirect($this->generateUrl('local',array('propietario' => $usuario->getId())));
+        }
+
+        $comentariosRepository = $this->getDoctrine()->getEntityManager()
+            ->getRepository('AppBundle:Comentario');
+        $comentarios = $comentariosRepository
+            ->createQueryBuilder('c')
+            ->where('c.local = :local')
+            ->setParameter('local', $local[0])
+            ->getQuery()
+            ->getResult();
+
+        return $this->render('usuario/comentario.html.twig', array(
+            'comentarios' => $comentarios
+
+        ));
+    }
+
 }

@@ -16,7 +16,7 @@
                 </tr>
             {% endfor %}
         </table>
-        <a href="{{ path('registromenu',{'local': local[0].id}) }}" class="btn btn-default btn-sm"><i
+        <a href="{{ path('registromenu',{'usuario': app.user.id}) }}" class="btn btn-default btn-sm"><i
                     class="fa fa-fast-forward"></i> Añadir Menú</a>
 
 
