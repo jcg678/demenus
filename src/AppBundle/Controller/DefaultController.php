@@ -228,14 +228,27 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/registrarmenu/{local}", name="registromenu")
+     * @Route("/registrarmenu/{usuario}", name="registromenu")
      */
 
-    public function addMenu(Request $request, Local $local)
+    public function addMenu(Request $request, Usuario $usuario)
     {
+        $localesRepository = $this->getDoctrine()->getEntityManager()
+            ->getRepository('AppBundle:Local');
+
+
+        $local = $localesRepository
+            ->createQueryBuilder('l')
+            ->where('l.propietario = :prop')
+            ->setParameter('prop', $usuario)
+            ->getQuery()
+            ->getResult();
+
+        if(empty($local)){
+            return $this->redirect($this->generateUrl('local',array('propietario' => $usuario->getId())));
+       }
+        
         $user =$this->getUser();
-
-
         $menu = new menu();
 
         $form = $this->createForm(new MenuType(), $menu);
@@ -243,7 +256,7 @@ class DefaultController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $menu->setEstablecimiento($local);
+            $menu->setEstablecimiento($local[0]);
             $em = $this->getDoctrine()->getManager();
             $em->persist($menu);
             $em->flush();
