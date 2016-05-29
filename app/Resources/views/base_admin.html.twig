@@ -164,32 +164,18 @@
                         <li class="nav-item  ">
                             <a href="{{ path('local',{'propietario': app.user.id}) }}" class="nav-link nav-toggle">
                                 <i class="fa fa-fort-awesome"></i>
-                                <span class="title">Mi local</span>
+                                <span class="title">Locales</span>
                                 
                             </a>
                             
                         </li>
                         <li class="nav-item  ">
                             <a href="javascript:;" class="nav-link nav-toggle">
-                                <i class="fa fa-cutlery"></i>
-                                <span class="title">Menús</span>
-                                <span class="arrow"></span>
+                                <i class="fa fa-user"></i>
+                                <span class="title">Usuarios</span>
+
                             </a>
-                            <ul class="sub-menu">
-                               <li class="nav-item  ">
-                                    <a href="{{ path('menus',{'propietario': app.user.id}) }}" class="nav-link ">
-                                       <i class="fa fa-cutlery"></i>
-                                        <span class="title">Ver Menús</span>
-                                    </a>
-                                </li>
-                                <li class="nav-item  ">
-                                    <a href="{{ path('registromenu',{'usuario': app.user.id }) }}" class="nav-link ">
-                                       <i class="fa fa-plus"></i>
-                                        <span class="title">Añadir Menú</span>
-                                    </a>
-                                </li>
-                                
-                            </ul>
+
                             
                         </li>
                         <li class="nav-item  ">

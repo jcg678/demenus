@@ -30,7 +30,7 @@ class DefaultController extends Controller
             $router = $this->container->get('router');
             // replace this example code with whatever you need
             if ($authChecker->isGranted('ROLE_ADMIN')) {
-                return $this->redirectToRoute('locales');
+                return $this->redirectToRoute('inicio_admin');
             }
             if ($authChecker->isGranted('ROLE_CLIENTE')) {
 
@@ -48,6 +48,24 @@ class DefaultController extends Controller
 
 
     }
+
+    /**
+     * @Route("/admin", name="inicio_admin")
+     */
+    public function inicioadminAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+
+
+
+        return $this->render(':admin:inicio_admin.html.twig'
+
+
+        );
+
+    }
+
 
     /**
      * @Route("/locales", name="locales")
