@@ -549,7 +549,7 @@ class DefaultController extends Controller
         $usuariosRepository = $em->getRepository('AppBundle:Usuario');
 
         $usuarios = $usuariosRepository->findAll();
-
+        dump($usuarios);
 
         return $this->render(':admin:listadousuarios.html.twig', [
             'usuarios'=>$usuarios,
@@ -558,6 +558,17 @@ class DefaultController extends Controller
 
     }
 
+
+    /**
+     * @Route("/banear/{usuario}", name="banear")
+     */
+    public function banearAction(Request $request,Usuario $usuario)
+    {
+        $cambio=$usuario->isLocked();
+
+        return $this->redirect($this->generateUrl('usuarios'));
+
+    }
 
 
 }

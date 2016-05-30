@@ -3,17 +3,19 @@
 {% block body %}
     <h3 class="well-lg">Usuarios</h3>
     <table class="table table-hover">
-        <tr><td>Nombre</td><td>Propietario</td><td>Baneo</td></tr>
+        <tr><td>Nombre</td><td>Ultima conexión</td><td>Baneo</td></tr>
     {% for usuario in usuarios %}
         <tr>
             <td>{{ usuario.username }} </td>
-            <td> </td>
+            <td>
+            {{ usuario.lastlogin.date  }}
+            </td>
             <td>
                 {%   if usuario.locked == 0 %}
-                    <a href="" class="btn btn-success"><i class="fa fa-plus-square"></i>Bloquear</a><br>
+                    <a href="" class="btn btn-danger"><i class="fa fa-plus-square"></i>Bloquear</a><br>
                     <br>
                 {% else %}
-                    <a href="" class="btn btn-danger"><i class="fa fa-plus-square"></i>Desbloquear</a><br>
+                    <a href="" class="btn btn-succes"><i class="fa fa-plus-square"></i>Desbloquear</a><br>
                     <br>
 
                 {%  endif %}
