@@ -1,15 +1,29 @@
 {% extends 'base_admin.html.twig' %}
 
 {% block body %}
-    <tbody>
+    <h3 class="well-lg">Locales</h3>
+    <table class="table table-hover">
+        <tr><td>Local</td><td>Propietario</td><td>Activo</td></tr>
     {% for local in locales %}
         <tr>
             <td>{{ local.nombre }} </td>
             <td>{{ local.propietario.username }} </td>
+            <td>
+                {%   if local.activo == 0 %}
+
+                    <a href="{{ path('tooglelocal',{'local': local.id}) }}" class="btn btn-success"><i class="fa fa-plus-square"></i>Activar</a><br>
+                    <br>
+                {% else %}
+                    <a href="{{ path('tooglelocal',{'local': local.id}) }}" class="btn btn-danger"><i class="fa fa-plus-square"></i>Desactivar</a><br>
+                    <br>
+                {%  endif %}
+
+
+            </td>
         </tr>
     {% endfor %}
-    </tbody>
     </table>
+
 {% endblock %}
 
 {% block stylesheets %}

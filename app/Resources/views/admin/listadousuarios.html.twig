@@ -1,0 +1,31 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block body %}
+    <h3 class="well-lg">Usuarios</h3>
+    <table class="table table-hover">
+        <tr><td>Nombre</td><td>Propietario</td><td>Baneo</td></tr>
+    {% for usuario in usuarios %}
+        <tr>
+            <td>{{ usuario.username }} </td>
+            <td> </td>
+            <td>
+                {%   if usuario.locked == 0 %}
+                    <a href="" class="btn btn-success"><i class="fa fa-plus-square"></i>Bloquear</a><br>
+                    <br>
+                {% else %}
+                    <a href="" class="btn btn-danger"><i class="fa fa-plus-square"></i>Desbloquear</a><br>
+                    <br>
+
+                {%  endif %}
+
+
+            </td>
+        </tr>
+    {% endfor %}
+    </table>
+
+{% endblock %}
+
+{% block stylesheets %}
+
+{% endblock %}

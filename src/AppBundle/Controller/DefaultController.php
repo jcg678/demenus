@@ -68,7 +68,7 @@ class DefaultController extends Controller
 
 
     /**
-     * @Route("/locales", name="locales")
+     * @Route("/admin/locales", name="locales")
      */
     public function localesAction(Request $request)
     {
@@ -433,8 +433,35 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
         $em->persist($local);
         $em->flush();
-        $user=$local->getPropietario();
-        return $this->redirect($this->generateUrl('local',array('propietario' => $user->getId())));
+
+        $session = $request->getSession();
+
+        if (false === $session->has('_security.main.target_path')) {
+
+            $authChecker = $this->container->get('security.authorization_checker');
+            $router = $this->container->get('router');
+            // replace this example code with whatever you need
+            if ($authChecker->isGranted('ROLE_ADMIN')) {
+                return $this->redirectToRoute('locales');
+            }
+            if ($authChecker->isGranted('ROLE_CLIENTE')) {
+
+                $user=$local->getPropietario();
+                return $this->redirect($this->generateUrl('local',array('propietario' => $user->getId())));
+
+
+
+            }
+        } else {
+            return new RedirectResponse($session->get('_security.main.target_path'));
+        }
+
+
+        return $this->render(':publico:publico.html.twig');
+
+
+
+
 
     }
 
@@ -506,5 +533,31 @@ class DefaultController extends Controller
 
         ));
     }
+
+
+    /**
+     * @Route("/admin/usuarios", name="usuarios")
+     */
+    public function usuariosAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        /**
+         * @var EntityRepository $usuariosRepository
+         */
+
+        $usuariosRepository = $em->getRepository('AppBundle:Usuario');
+
+        $usuarios = $usuariosRepository->findAll();
+
+
+        return $this->render(':admin:listadousuarios.html.twig', [
+            'usuarios'=>$usuarios,
+
+        ]);
+
+    }
+
+
 
 }
