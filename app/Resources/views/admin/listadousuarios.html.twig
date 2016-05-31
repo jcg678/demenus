@@ -12,10 +12,10 @@
             </td>
             <td>
                 {%   if usuario.locked == 0 %}
-                    <a href="" class="btn btn-danger"><i class="fa fa-plus-square"></i>Bloquear</a><br>
+                    <a href="{{ path('banear',{'usuario': usuario.id}) }}" class="btn btn-danger"><i class="fa fa-plus-square"></i>Bloquear</a><br>
                     <br>
                 {% else %}
-                    <a href="" class="btn btn-succes"><i class="fa fa-plus-square"></i>Desbloquear</a><br>
+                    <a href="{{ path('banear',{'usuario': usuario.id}) }}" class="btn btn-success"><i class="fa fa-plus-square"></i>Desbloquear</a><br>
                     <br>
 
                 {%  endif %}

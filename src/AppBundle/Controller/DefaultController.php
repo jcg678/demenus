@@ -565,9 +565,14 @@ class DefaultController extends Controller
     public function banearAction(Request $request,Usuario $usuario)
     {
         $cambio=$usuario->isLocked();
-
+        
+        $usuario->setLocked(!$cambio);
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($usuario);
+        $em->flush();
+    
         return $this->redirect($this->generateUrl('usuarios'));
-
+        
     }
 
 
