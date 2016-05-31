@@ -19,6 +19,27 @@
         {% else %}
             <i class="fa fa-home"></i>{{ local[0].numero }}<br>
         {% endif %}
+        <div id="mapa_usuario"></div>
+
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDOPiuIXZzv__WGIHgdZHjUO4gq_sf_LUQ"
+                type="text/javascript"></script>
+
+        <script type="text/javascript">
+    var mapProp = {
+        center:new google.maps.LatLng({{ local[0].longitud }},{{ local[0].latitud }}),
+        zoom:16,
+        mapTypeId:google.maps.MapTypeId.ROADMAP
+    };
+    var map=new google.maps.Map(document.getElementById("mapa_usuario"),mapProp);
+
+    var marker = new google.maps.Marker({
+        position: {lat: {{ local[0].longitud }}, lng: {{ local[0].latitud }}},
+        map: map,
+
+
+    });
+
+</script>
 
         {%   if local[0].activo == 0 %}
             <a href="{{ path('tooglelocal',{'local': local[0].id}) }}" class="btn btn-success"><i class="fa fa-plus-square"></i>Activar</a><br>

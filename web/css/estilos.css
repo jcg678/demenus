@@ -5,7 +5,12 @@
 }
 
 #map2{
+    height: 200px;
+    width: 100%;
 
+}
+
+#mapa_usuario{
     height: 200px;
     width: 100%;
 }
