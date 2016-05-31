@@ -8,6 +8,18 @@
         <i class="fa fa-home"></i>{{ local[0].cp }}<br>
         <i class="fa fa-home"></i>{{ local[0].localidad }}<br>
         <i class="fa fa-home"></i>{{ local[0].provincia }}<br>
+        {% if local[0].direccion == null %}
+            <i class="fa fa-home"></i>Aún no existe dirección<br>
+            {% else %}
+                <i class="fa fa-home"></i>{{ local[0].direccion }}<br>
+        {% endif %}
+
+        {% if local[0].numero == null %}
+            <i class="fa fa-home"></i>Aún no existe número<br>
+        {% else %}
+            <i class="fa fa-home"></i>{{ local[0].numero }}<br>
+        {% endif %}
+
         {%   if local[0].activo == 0 %}
             <a href="{{ path('tooglelocal',{'local': local[0].id}) }}" class="btn btn-success"><i class="fa fa-plus-square"></i>Activar</a><br>
             (Activalo si quieres que tu local sea públicado en el mapa)<br>

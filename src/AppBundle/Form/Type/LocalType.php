@@ -46,6 +46,8 @@ class LocalType extends AbstractType
                     'label' => 'Código postal'
                 )
                 )
+            ->add('direccion')
+            ->add('numero')
             ->add('guardar', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', [
                 'attr' => [
                     'class' => "btn-success"
