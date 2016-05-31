@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Articulo;
+use AppBundle\Entity\Comentario;
 use AppBundle\Form\Type\LocalType;
 use AppBundle\Form\Type\MenuType;
 use AppBundle\Form\Type\ArticuloType;
@@ -549,7 +550,7 @@ class DefaultController extends Controller
         $usuariosRepository = $em->getRepository('AppBundle:Usuario');
 
         $usuarios = $usuariosRepository->findAll();
-        dump($usuarios);
+        
 
         return $this->render(':admin:listadousuarios.html.twig', [
             'usuarios'=>$usuarios,
@@ -573,6 +574,38 @@ class DefaultController extends Controller
     
         return $this->redirect($this->generateUrl('usuarios'));
         
+    }
+
+    /**
+     * @Route("/admin/comentarios", name="comentarios_admin")
+     */
+    public function comentariosadminAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        /**
+         * @var EntityRepository $comentariosRepository
+         */
+
+        $comentariossRepository = $em->getRepository('AppBundle:Comentario');
+
+        $comentarios = $comentariossRepository->findAll();
+        
+
+        return $this->render(':admin:comentarios_admin.html.twig', [
+            'comentarios'=>$comentarios,
+
+        ]);
+
+    }
+    /**
+     * @Route("/admin/removecomentario/{comentario}", name="remove_comentarios")
+     */
+    public function comentariosRemove(Request $request,Comentario $comentario)
+    {
+        $this->getDoctrine()->getManager()->remove($comentario);
+        $this->getDoctrine()->getManager()->flush();
+        return $this->redirect($this->generateUrl('comentarios_admin'));
     }
 
 
