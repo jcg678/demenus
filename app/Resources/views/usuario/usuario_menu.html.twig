@@ -5,29 +5,25 @@
 
         <tr>
             {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-            <td>Conectado como {{ app.user.username }} {{ app.user.id }}</td>
-            <a href="{{ path('fos_user_profile_show') }}">
-                <i class="fa fa-envelope-o"></i> Mi Cuenta </a>
-
-
-                <a href="{{ path('fos_user_change_password') }}">
-                    Cambiar Contraseña </a>
-
-
-                <a title="Cerrar sesión" href="{{ path('fos_user_security_logout') }}">
-                     {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
-                </a>
-
-                <a href="{{ path('local',{'propietario': app.user.id}) }}">
-                    Mi Local</a>
-                <a href="{{ path('menus',{'propietario': app.user.id}) }}">
-                    Mis Menús</a>
+                <h3 class="well-lg">Bienvenido, {{ app.user.username }}</h3>
 
             {% endif %}
         </tr>
 
     </tbody>
     </table>
-
+    <div class="row">
+        <div class="col-lg-2 col-sm-2"></div>
+        <div class="col-lg-2 col-sm-2"><a href="{{ path('local',{'propietario': app.user.id}) }}"><img alt="" width="300px" src="{{ asset('images/usuarios/user_local.png') }}" /></a></div>
+        <div class="col-lg-2 col-sm-2"></div>
+        <div class="col-lg-2 col-sm-2"><a href="{{ path('menus',{'propietario': app.user.id}) }}"><img alt=""  src="{{ asset('images/usuarios/user_menu.png') }}" /></a></div>
+    </div>
+    <br>
+        <div class="row">
+            <div class="col-lg-2 col-sm-2"></div>
+            <div class="col-lg-2 col-sm-2"><a href="{{ path('registromenu',{'usuario': app.user.id }) }}" ><img alt=""  src="{{ asset('images/usuarios/user_add.png') }}" /></a></div>
+            <div class="col-lg-2 col-sm-2"></div>
+            <div class="col-lg-2 col-sm-2"><a href="{{ path('vercomentarios',{'usuario': app.user.id }) }}" ><img alt=""  src="{{ asset('images/usuarios/user_comentarios.png') }}" /></a></div>
+        </div>
 
 {% endblock %}
