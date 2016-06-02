@@ -137,12 +137,18 @@ class DefaultController extends Controller
             ->setParameter('prop', $propietario)
             ->getQuery()
             ->getResult();
+        $imagen=null;
+        if(!empty($local)) {
+            $helper = $this->container->get('vich_uploader.templating.helper.uploader_helper');
+            $imagen = $helper->asset($local[0], 'fotoImage');
+        }
 
          /*if(empty($local)){
              return $this->render(':publico:publico.html.twig');
          }*/
         return $this->render('usuario/local.html.twig', [
-            'local' => $local
+            'local' => $local,
+            'ImagenLocal' => $imagen
 
         ]);
     }
@@ -188,6 +194,8 @@ class DefaultController extends Controller
         $form = $this->createForm('AppBundle\Form\Type\LocalType', $local);
 
         $form->handleRequest($request);
+       $helper = $this->container->get('vich_uploader.templating.helper.uploader_helper');
+       $imagen = $helper->asset($local, 'fotoImage');
 
         if ($form->isSubmitted() && $form->isValid()) {
 
@@ -199,8 +207,9 @@ class DefaultController extends Controller
 
         return $this->render(':usuario:localform.html.twig',
                 [
-                        'form' => $form->createView()
-                       ]);
+                    'form' => $form->createView(),
+                    'imagenLocal' => $imagen,
+                ]);
     }
 
 

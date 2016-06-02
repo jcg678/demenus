@@ -19,6 +19,14 @@
         {% else %}
             <i class="fa fa-home"></i>{{ local[0].numero }}<br>
         {% endif %}
+
+        <div class="col-md-6">
+            {% if ImagenLocal  == '' %}
+                <img class="thumbnail" src="" style = "width: 200px;" />
+            {% else %}
+                <img class="thumbnail" src=" {{ ImagenLocal }}" style = "width: 200px;" />
+            {% endif %}
+        </div>
         <div id="mapa_usuario"></div>
 
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDOPiuIXZzv__WGIHgdZHjUO4gq_sf_LUQ"

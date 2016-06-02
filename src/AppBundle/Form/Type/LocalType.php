@@ -6,6 +6,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Regex;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class LocalType extends AbstractType
 {
@@ -48,6 +49,11 @@ class LocalType extends AbstractType
                 )
             ->add('direccion')
             ->add('numero')
+            ->add('fotoImage', VichImageType::class, array(
+                'required'      => false,
+                'allow_delete'  => true, // not mandatory, default is true
+                'download_link' => false, // not mandatory, default is true
+            ))
             ->add('guardar', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', [
                 'attr' => [
                     'class' => "btn-success"
