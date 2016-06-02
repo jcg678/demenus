@@ -34,14 +34,14 @@
 
         <script type="text/javascript">
     var mapProp = {
-        center:new google.maps.LatLng({{ local[0].longitud }},{{ local[0].latitud }}),
+        center:new google.maps.LatLng({{ local[0].latitud }},{{ local[0].longitud }}),
         zoom:16,
         mapTypeId:google.maps.MapTypeId.ROADMAP
     };
     var map=new google.maps.Map(document.getElementById("mapa_usuario"),mapProp);
 
     var marker = new google.maps.Marker({
-        position: {lat: {{ local[0].longitud }}, lng: {{ local[0].latitud }}},
+        position: {lat: {{ local[0].latitud }}, lng: {{ local[0].longitud }}},
         map: map,
 
 
