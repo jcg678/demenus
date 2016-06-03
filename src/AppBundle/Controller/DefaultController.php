@@ -15,6 +15,7 @@ use AppBundle\Entity\Local;
 use AppBundle\Entity\Usuario;
 use AppBundle\Entity\Menu;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class DefaultController extends Controller
 {
@@ -212,6 +213,12 @@ class DefaultController extends Controller
 
             $user=$local->getPropietario();
             $this->getDoctrine()->getManager()->flush();
+
+            $this->addFlash(
+                'notice',
+                'Your changes were saved!'
+            );
+            
 
             return $this->redirect($this->generateUrl('local',array('propietario' => $user->getId())));
         }
