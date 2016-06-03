@@ -6,9 +6,17 @@
     {% if comentarios %}
         <h2 class="well-lg">Comentarios</h2>
         <table>
+            <tr><th>Opinión</th><th>Reclamar</th></tr>
             {% for comentario in comentarios %}
                 <tr>
                     <td>{{ comentario.texto }}</td>
+                    {% if comentario.aviso == 1 %}
+                    <td><a href="{{ path('reclamar',{'comentario': comentario.id }) }}" class="btn btn-danger">Reclamado</a></td>
+
+                    {% else %}
+
+                    <td><a href="{{ path('reclamar',{'comentario': comentario.id }) }}" class="btn btn-info">Reclamar</a></td>
+                    {% endif %}
                 </tr>
             {% endfor %}
         </table>

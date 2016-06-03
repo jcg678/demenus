@@ -3,16 +3,29 @@
 {% block body %}
     <h3 class="well-lg">Comentarios</h3>
     <table class="table table-hover">
-        <tr><td>Local</td><td>Comentario</td><td>Activo</td></tr>
+        <tr><td>Local</td><td>Comentario</td><td>Aviso</td><td>Activo</td></tr>
     {% for comentario in comentarios %}
-        <tr>
+        {% if comentario.aviso==1 %}
+            <tr bgcolor="#EE6D6D">
+        {% else %}
+            <tr>
+        {% endif %}
+
+
             <td>{{ comentario.local.nombre }} </td>
             <td>{{ comentario.texto }} </td>
+
+            {% if comentario.aviso == 1 %}
+             <td><a href="{{ path('reclamar',{'comentario': comentario.id }) }}" class="btn btn-danger">Reclamado</a></td>
+
+            {% else %}
+
+             <td><a href="{{ path('reclamar',{'comentario': comentario.id }) }}" class="btn btn-info">Reclamar</a></td>
+             {% endif %}
+
+
             <td>
-
-
                     <a href="{{ path('remove_comentarios',{'comentario':comentario.id}) }}" class="btn btn-danger"><i class="fa fa-plus-square"></i>Eliminar</a><br>
-
 
             </td>
         </tr>

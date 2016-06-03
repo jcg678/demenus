@@ -56,11 +56,22 @@ class DefaultController extends Controller
     public function inicioadminAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+        $comentariosRepository = $this->getDoctrine()->getEntityManager()
+            ->getRepository('AppBundle:Comentario');
 
 
+        $avisos = $comentariosRepository
+            ->createQueryBuilder('l')
+            ->select('COUNT(l)')
+            ->where('l.aviso = 1')
+            ->getQuery()
+            ->getSingleScalarResult();
 
 
-        return $this->render(':admin:inicio_admin.html.twig'
+        return $this->render(':admin:inicio_admin.html.twig',
+            [
+            'avisos'=>$avisos
+            ]
 
 
         );
@@ -598,8 +609,12 @@ class DefaultController extends Controller
 
         $comentariossRepository = $em->getRepository('AppBundle:Comentario');
 
-        $comentarios = $comentariossRepository->findAll();
-        
+        $comentarios = $comentariossRepository
+            ->createQueryBuilder('c')
+            ->orderBy('c.aviso','desc')
+            ->getQuery()
+            ->getResult();
+        dump($comentarios);
 
         return $this->render(':admin:comentarios_admin.html.twig', [
             'comentarios'=>$comentarios,
@@ -617,5 +632,44 @@ class DefaultController extends Controller
         return $this->redirect($this->generateUrl('comentarios_admin'));
     }
 
+    /**
+     * @Route("/reclamar/{comentario}", name="reclamar")
+     */
+    public function reclamarAction(Request $request,Comentario $comentario)
+    {
+        $user=$this->getUser();
+        if(1==$comentario->getAviso()){
+            $cambio=0;
+        }
+        if(0==$comentario->getAviso()){
+            $cambio=1;
+        }
+        if(null==$comentario->getAviso()){
+            $cambio=1;
+        }
+
+
+        $comentario->setAviso($cambio);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($comentario);
+        $em->flush();
+        $session = $request->getSession();
+
+        if (false === $session->has('_security.main.target_path')) {
+
+            $authChecker = $this->container->get('security.authorization_checker');
+            $router = $this->container->get('router');
+            // replace this example code with whatever you need
+            if ($authChecker->isGranted('ROLE_ADMIN')) {
+                return $this->redirectToRoute('comentarios_admin');
+            }
+
+        }
+
+
+        return $this->redirect($this->generateUrl('vercomentarios',array('usuario' => $user->getId())));
+
+    }
 
 }
