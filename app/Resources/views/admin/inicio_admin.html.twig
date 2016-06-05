@@ -11,4 +11,20 @@
         Hoy, no tiene reclamaciones de los clientes !Enhorabuena¡
 
     {% endif %}
+
+    <div class="row">
+        <div class="col-lg-2 col-sm-2"></div>
+        <div class="col-lg-2 col-sm-2"><a href="{{ path('locales')}}"><img alt="" width="300px" src="{{ asset('images/usuarios/user_local.png') }}" /></a></div>
+        <div class="col-lg-2 col-sm-2"></div>
+        <div class="col-lg-2 col-sm-2"><a href="{{ path('usuarios')}}"><img alt=""  src="{{ asset('images/usuarios/logos_user.png') }}" /></a></div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-lg-2 col-sm-2"></div>
+
+        <div class="col-lg-2 col-sm-2"></div>
+        <div class="col-lg-2 col-sm-2"><a href="{{ path('comentarios_admin') }}" ><img alt=""  src="{{ asset('images/usuarios/user_comentarios.png') }}" /></a></div>
+    </div>
+
+
 {% endblock %}
