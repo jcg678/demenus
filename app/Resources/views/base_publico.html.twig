@@ -29,7 +29,7 @@
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="{{ path("homepage") }}">Home</a></li>
-                <li class="active"><button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button></li>
+                <li class="active"><a  data-toggle="modal" data-target="#myModal">Más info</a></li>
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span class="caret"></span></a>
                     <ul class="dropdown-menu">
@@ -57,23 +57,25 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Modal Header</h4>
+                <h4 class="modal-title">Bienvenido a Demenus.es</h4>
             </div>
             <div class="modal-body">
-                <p>Some text in the modal.</p>
-
+                <p>Que puedes encontrar en esta web:</p>
+                <p>Puedes localizar locales con menús más cercanos</p>
+                <p>Si tienes un bar/restaurante puedes públicar tu establecimiento y tus menús</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
 
     </div>
 {% block javascripts %}
+    <script type="text/javascript" src="{{ asset('js/jquery-1.12.3.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/mapa.js') }}"></script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDOPiuIXZzv__WGIHgdZHjUO4gq_sf_LUQ&callback=initMap"
             type="text/javascript"></script>
-    <script type="text/javascript" src="{{ asset('js/jquery-1.12.3.min.js') }}"></script>
+
     <script type="text/javascript" src="{{ asset('bootstrap/js/bootstrap.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/bootstrap-toastr/toastr.min.js') }}"></script>
 
