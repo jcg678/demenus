@@ -1,6 +1,43 @@
 
 var latitud;
 var longitud;
+var map;
+var puntos =[];
+var allInfos = [];
+
+$( document ).ready(function() {
+    $('#quitar').click(function () {
+        console.log(puntos);
+       removepuntos(puntos);
+    });
+});
+
+
+function  removepuntos(conjunto) {
+    conjunto.forEach(function (marker) {
+        marker.setMap(null);
+        
+    });
+}
+
+function cargartodos() {
+    var datos;
+    $.ajax({
+        url: "todos_locales",
+        scriptCharset: "utf-8",
+        type: 'POST',
+        processData: true,
+        dataType: 'json',
+        success: function (data) {
+            pintaPuntos(data);
+
+        },
+        error: function (xhr, status) {
+            alert('Disculpe, existió un problema ->' + status);
+        }
+    });
+
+}
 
 function crearMapa(punto,zoom){
 
@@ -18,8 +55,38 @@ function crearMapa(punto,zoom){
             position: google.maps.ControlPosition.RIGHT_BOTTOM
         }
     });
+    cargartodos();
+}
+
+function pintaPuntos(objetos) {
+    allInfos=[];
+    puntos = [];
+    objetos.forEach(function (item) {
+        marker = new google.maps.Marker({
+            position: new google.maps.LatLng(item.latitud, item.longitud),
+            map: map,
+            title: item.nombre,
+            animation: google.maps.Animation.DROP,
+        });
+
+        puntos.push(marker);
+
+        var contentString ="Nombre:"+item.nombre+"<br>"+"<a href='verficha/"+item.id+"' target='_blank' >Ver ficha</a>";
+        var infowindow = new google.maps.InfoWindow({
+            content: contentString
+        });
+        allInfos.push(infowindow);
+        google.maps.event.addListener(marker, 'click', (function () {
+            closeInfos();
+            map.panTo(new google.maps.LatLng(item.latitud, item.longitud));
+            infowindow.open(map, this);
+        }));
+
+    })
+
 
 }
+
 
 function initMap()
 {
@@ -47,54 +114,38 @@ function initMap()
         });
         marker.setIcon('https://dl.dropboxusercontent.com/u/20056281/Iconos/male-2.png');
 
+
     };
 
 
-    function error(err) {
-        console.warn('ERROR(' + err.code + '): ' + err.message);
-    };
+
     if (navigator.geolocation) {
         punto = {lat: 37.8139348, lng: -3.3807777};
         zoom = 9;
         navigator.geolocation.getCurrentPosition(success, crearMapa(punto,zoom));
+
     }
     else
     {
-        zoom=9;
+        zoom=16;
         console.log("XXx");
         var punto = {lat: 37.8139348, lng: -3.3807777};
         crearMapa(punto,zoom);
+
     }
 
     console.log("prueba");
 
-/*
-    var ajax_data = {
-        "id"     : blog.id,
-        "name"   : blog.name,
-        "url"    : blog.url,
-        "author" : blog.author
-    };
 
-    $.ajax({
-        url: destination.url,
-        data: ajax_data,
-        type: "post",
-        success: function(json) {
-
-        },
-        error:function (xhr, ajaxOptions, thrownError) {
-
-        }
-    });
-*/
-
-
-
-
+    
 }
 
 
+function closeInfos() {
+    for (i = 0; i < allInfos.length; i++) {
+        allInfos[i].close();
+    }
+}
 
 
 

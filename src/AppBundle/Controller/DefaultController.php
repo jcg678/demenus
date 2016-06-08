@@ -16,6 +16,7 @@ use AppBundle\Entity\Usuario;
 use AppBundle\Entity\Menu;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Response;
 
 class DefaultController extends Controller
 {
@@ -678,5 +679,135 @@ class DefaultController extends Controller
         return $this->redirect($this->generateUrl('vercomentarios',array('usuario' => $user->getId())));
 
     }
+    
+    
+    //--------------AJAXXXX
+
+    /**
+
+     * @Route("/todos_locales", name="todos_locales", condition="request.isXmlHttpRequest()")
+     */
+    public function todos_locales(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        /**
+         * @var EntityRepository $localesRepository
+         */
+        $localesRepository = $em->getRepository('AppBundle:Local');
+        $locales = $localesRepository->createQueryBuilder('u')
+            ->select('u.id')
+            ->addSelect('u.nombre')
+            ->addSelect('u.latitud')
+            ->addSelect('u.longitud')
+            ->where('u.activo = 1')
+            ->getQuery()
+            ->getResult();
+
+        $resultado = json_encode($locales);
+        dump($resultado);
+        return new Response($resultado);
+    }
+
+    /**
+     * @Route("/busqueda_avanzada", name="busqueda_avanzada", condition="request.isXmlHttpRequest()")
+     */
+    public function busqueda_avanzada(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        /**
+         * @var EntityRepository $localesRepository
+         */
+        $localesRepository = $em->getRepository('AppBundle:Local');
+        $locales = $localesRepository->createQueryBuilder('u')
+            ->select('u.id')
+            ->addSelect('u.nombre')
+            ->addSelect('u.latitud')
+            ->addSelect('u.longitud')
+            ->where('u.activo = 1')
+            ->getQuery()
+            ->getResult();
+
+        $resultado = json_encode($locales);
+        dump($resultado);
+        return new Response($resultado);
+    }
+
+    /**
+     * @Route("/verficha/{local}", name="verficha")
+     */
+    public function ficha(Local $local)
+    {
+        $em = $this->getDoctrine()->getManager();
+        /**
+         * @var EntityRepository $localesRepository
+         */
+
+        $localesRepository = $this->getDoctrine()->getEntityManager()
+            ->getRepository('AppBundle:Local');
+
+
+        $local = $localesRepository
+            ->createQueryBuilder('l')
+            ->where('l.id = :id')
+            ->setParameter('id', $local)
+            ->getQuery()
+            ->getResult();
+        $helper = $this->container->get('vich_uploader.templating.helper.uploader_helper');
+        $imagen = $helper->asset($local[0], 'fotoImage');
+
+
+        $comentariosRepository = $this->getDoctrine()->getEntityManager()
+            ->getRepository('AppBundle:Comentario');
+        $comentarios = $comentariosRepository
+            ->createQueryBuilder('c')
+            ->where('c.local = :local')
+            ->setParameter('local', $local[0])
+            ->getQuery()
+            ->getResult();
+
+
+        $menusRepository = $this->getDoctrine()->getEntityManager()
+            ->getRepository('AppBundle:Menu');
+
+
+        $menus = $menusRepository
+            ->createQueryBuilder('l')
+            ->where('l.establecimiento = :prop')
+            ->setParameter('prop', $local)
+            ->getQuery()
+            ->getResult();
+
+
+        /**
+         * @var EntityRepository
+         */
+        $articulosRepository = $this->getDoctrine()->getEntityManager()
+            ->getRepository('AppBundle:Articulo');
+        $todos[]=null;
+        for($i=0;$i<sizeof($menus);$i++) {
+            $articulos = $articulosRepository
+                ->createQueryBuilder('a')
+                ->where('a.menu = :men')
+                ->setParameter('men', $menus[$i])
+                ->orderBy('a.tipo')
+                ->getQuery()
+                ->getResult();
+            $todos[$i]=$articulos;
+        }
+        dump($todos);
+        
+        return $this->render(':publico:fichalocal.html.twig',
+            [
+            'local'=>$local,
+                'ImagenLocal' => $imagen,
+                'comentarios' => $comentarios,
+                'menus' => $menus,
+                'articulos'=>$todos
+            ]
+
+        );
+
+    }
+    
 
 }

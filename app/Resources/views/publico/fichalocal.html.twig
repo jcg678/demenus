@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <title>{% block title %}{{  local[0].nombre}}{% endblock %}</title>
+<link href="{{ asset('css/estilos.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css" />
+</head>
+<body>
+{% if local %}
+<div class="well well-lg"><h1 >{{ local[0].nombre }}</h1></div>
+
+<i class="fa fa-phone"></i>:{{ local[0].telefono }}<br>
+<i class="fa fa-home"></i>{{ local[0].cp }}<br>
+<i class="fa fa-home"></i>{{ local[0].localidad }}<br>
+<i class="fa fa-home"></i>{{ local[0].provincia }}<br>
+{% if local[0].direccion == null %}
+    <i class="fa fa-home"></i>Aún no existe dirección<br>
+{% else %}
+    <i class="fa fa-home"></i>{{ local[0].direccion }}<br>
+{% endif %}
+
+        {% if local[0].numero == null %}
+            <i class="fa fa-home"></i>Aún no existe número<br>
+        {% else %}
+            <i class="fa fa-home"></i>{{ local[0].numero }}<br>
+        {% endif %}
+
+<div class="col-md-6">
+    {% if ImagenLocal  == '' %}
+        No existe imagen del local
+    {% else %}
+        <img class="thumbnail" src=" {{ ImagenLocal }}" style = "width: 200px;" />
+    {% endif %}
+</div>
+<div id="mapa_usuario"></div>
+    <h3>Menús</h3>
+<table>
+
+    {% for menu in menus %}
+        <tr>
+            <td>{{ menu.nombre }}</td>
+            <td>{{ menu.precio }}</td>
+            <td>{{ menu.descripcion}}</td>
+
+        </tr>
+    {% else %}
+        Aún no existen menús
+    {% endfor %}
+
+</table>
+
+    {% for conjunto in articulos %}
+        {% for producto in conjunto %}
+            <br>{{ producto.nombre }}
+            <br>{{ producto.tipo }}
+        {% endfor %}
+    {% endfor %}
+
+
+    <h3>Comentarios</h3>
+{% endif %}
+<table>
+        {% for comentario in comentarios %}
+            <tr>
+                <td>{{ comentario.texto }}</td>
+
+            </tr>
+        {% else %}
+            Aún no existen comentarios
+        {% endfor %}
+</table>
+</body>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDOPiuIXZzv__WGIHgdZHjUO4gq_sf_LUQ"
+        type="text/javascript"></script>
+
+<script type="text/javascript">
+    var mapProp = {
+        center:new google.maps.LatLng({{ local[0].latitud }},{{ local[0].longitud }}),
+        zoom:16,
+        mapTypeId:google.maps.MapTypeId.ROADMAP
+    };
+    var map=new google.maps.Map(document.getElementById("mapa_usuario"),mapProp);
+
+    var marker = new google.maps.Marker({
+        position: {lat: {{ local[0].latitud }}, lng: {{ local[0].longitud }}},
+        map: map,
+
+
+    });
+
+</script>
