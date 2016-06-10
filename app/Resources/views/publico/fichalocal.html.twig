@@ -5,61 +5,74 @@
     <title>{% block title %}{{  local[0].nombre}}{% endblock %}</title>
 <link href="{{ asset('css/estilos.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{ asset('font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap.css') }}" />
 </head>
 <body>
-{% if local %}
-<div class="well well-lg"><h1 >{{ local[0].nombre }}</h1></div>
+<div class="container">
 
-<i class="fa fa-phone"></i>:{{ local[0].telefono }}<br>
-<i class="fa fa-home"></i>{{ local[0].cp }}<br>
-<i class="fa fa-home"></i>{{ local[0].localidad }}<br>
-<i class="fa fa-home"></i>{{ local[0].provincia }}<br>
-{% if local[0].direccion == null %}
-    <i class="fa fa-home"></i>Aún no existe dirección<br>
-{% else %}
-    <i class="fa fa-home"></i>{{ local[0].direccion }}<br>
-{% endif %}
-
-        {% if local[0].numero == null %}
-            <i class="fa fa-home"></i>Aún no existe número<br>
+        {% if local %}
+        <div class="well well-lg"><h1 >{{ local[0].nombre }}</h1></div>
+    <div class="row">
+        <div class="col-md-6">
+        <i class="fa fa-phone"></i>:{{ local[0].telefono }}<br>
+        <i class="fa fa-home"></i>{{ local[0].cp }}<br>
+        <i class="fa fa-home"></i>{{ local[0].localidad }}<br>
+        <i class="fa fa-home"></i>{{ local[0].provincia }}<br>
+        {% if local[0].direccion == null %}
+            <i class="fa fa-home"></i>Aún no existe dirección<br>
         {% else %}
-            <i class="fa fa-home"></i>{{ local[0].numero }}<br>
+            <i class="fa fa-home"></i>{{ local[0].direccion }}<br>
         {% endif %}
 
-<div class="col-md-6">
-    {% if ImagenLocal  == '' %}
-        No existe imagen del local
-    {% else %}
-        <img class="thumbnail" src=" {{ ImagenLocal }}" style = "width: 200px;" />
-    {% endif %}
-</div>
-<div id="mapa_usuario"></div>
-    <h3>Menús</h3>
-<table>
-
-    {% for menu in menus %}
-        <tr>
-            <td>{{ menu.nombre }}</td>
-            <td>{{ menu.precio }}</td>
-            <td>{{ menu.descripcion}}</td>
-
-        </tr>
-    {% else %}
-        Aún no existen menús
-    {% endfor %}
-
-</table>
-
-    {% for conjunto in articulos %}
-        {% for producto in conjunto %}
-            <br>{{ producto.nombre }}
-            <br>{{ producto.tipo }}
-        {% endfor %}
-    {% endfor %}
+                {% if local[0].numero == null %}
+                    <i class="fa fa-home"></i>Aún no existe número<br>
+                {% else %}
+                    <i class="fa fa-home"></i>{{ local[0].numero }}<br>
+                {% endif %}
 
 
-    <h3>Comentarios</h3>
+            {% if ImagenLocal  == '' %}
+                No existe imagen del local
+            {% else %}
+                <img class="thumbnail" src=" {{ ImagenLocal }}" style = "width: 200px;" />
+            {% endif %}
+
+        <div id="mapa_usuario"></div>
+
+    </div>
+
+
+        <div class="col-md-6">
+            <h3>Menús</h3>
+            {% for menu in menus %}
+                <tr>
+                    <td>{{ menu.nombre }}</td>
+                    <td>{{ menu.precio }}</td>
+                    <td>{{ menu.descripcion}}</td>
+
+                </tr>
+            {% else %}
+                Aún no existen menús
+            {% endfor %}
+
+
+
+            {% for conjunto in articulos %}
+                {% for producto in conjunto %}
+                    <br>{{ producto.nombre }}
+                    <br>{{ producto.tipo }}
+                {% endfor %}
+            {% endfor %}
+
+        </div>
+
+
+
 {% endif %}
+        <div class="row">
+            <div class="col-md-12">
+                <hr>
+        <h3>Comentarios</h3>
 <table>
         {% for comentario in comentarios %}
             <tr>
@@ -69,7 +82,10 @@
         {% else %}
             Aún no existen comentarios
         {% endfor %}
-</table>
+</table></div>
+        </div>
+</div>
+    </div>
 </body>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDOPiuIXZzv__WGIHgdZHjUO4gq_sf_LUQ"
         type="text/javascript"></script>
