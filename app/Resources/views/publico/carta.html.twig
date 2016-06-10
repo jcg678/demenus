@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <title>{% block title %}{{  menu.nombre}}{% endblock %}</title>
+    <link href="{{ asset('css/estilos.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap.css') }}" />
+</head>
+<body>
+<div class="container">
+<h2 class="well-lg">Menú: {{ menu.nombre }} </h2>
+{% if articulos %}
+    <table class="table " >
+        <thead>
+        <tr bgcolor="#a9a9a9">
+            <th>Tipo</th>
+            <th>Nombre</th>
+
+        </tr>
+        </thead>
+        {% for articulo in articulos %}
+            <tr >
+                <td>{{ articulo.nombre }}</td>
+
+                <td>{{ articulo.tipo.plato }}</td>
+
+
+        <tr >
+            <td colspan="2" bgcolor="#f0f8ff">Descripción: {{ articulo.descripcion }}</td>
+        </tr>
+
+        {% endfor %}
+        <tr >
+            <td ><h2> Precio: {{ menu.precio }} € </h2></td>
+            <td><a class="btn btn-info" href="{{ path('verficha',{'local': menu.establecimiento.id}) }}">Volver</a></td>
+        </tr>
+    </table>
+
+
+
+{% else %}
+    <h2>No hay articulo</h2>
+    <a class="btn btn-info" href="{{ path('verficha',{'local': menu.establecimiento.id}) }}">Volver</a>
+{% endif %}
+</div>
+</body>

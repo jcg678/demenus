@@ -11,23 +11,24 @@
 <div class="container">
 
         {% if local %}
-        <div class="well well-lg"><h1 >{{ local[0].nombre }}</h1></div>
+        <div class="well well-lg"><h1 ><i class="fa fa-home"></i> {{ local[0].nombre }}</h1></div>
     <div class="row">
         <div class="col-md-6">
-        <i class="fa fa-phone"></i>:{{ local[0].telefono }}<br>
-        <i class="fa fa-home"></i>{{ local[0].cp }}<br>
-        <i class="fa fa-home"></i>{{ local[0].localidad }}<br>
-        <i class="fa fa-home"></i>{{ local[0].provincia }}<br>
+            <h3>Datos de contacto</h3>
+        <i class="fa fa-phone"></i> {{ local[0].telefono }}<br>
+        Código Postal: {{ local[0].cp }}<br>
+        Localidad: {{ local[0].localidad }}<br>
+        Provincia: {{ local[0].provincia }}<br>
         {% if local[0].direccion == null %}
-            <i class="fa fa-home"></i>Aún no existe dirección<br>
+            Aún no existe dirección<br>
         {% else %}
-            <i class="fa fa-home"></i>{{ local[0].direccion }}<br>
+            Dirección{{ local[0].direccion }}<br>
         {% endif %}
 
                 {% if local[0].numero == null %}
-                    <i class="fa fa-home"></i>Aún no existe número<br>
+                    Aún no existe número<br>
                 {% else %}
-                    <i class="fa fa-home"></i>{{ local[0].numero }}<br>
+                    Número{{ local[0].numero }}<br>
                 {% endif %}
 
 
@@ -36,33 +37,37 @@
             {% else %}
                 <img class="thumbnail" src=" {{ ImagenLocal }}" style = "width: 200px;" />
             {% endif %}
-
+        <h3>Localización</h3>
         <div id="mapa_usuario"></div>
 
     </div>
 
 
         <div class="col-md-6">
-            <h3>Menús</h3>
+            <h3><i class="fa fa-cutlery"></i> Menús</h3>
+            <table class="table ">
             {% for menu in menus %}
                 <tr>
                     <td>{{ menu.nombre }}</td>
-                    <td>{{ menu.precio }}</td>
-                    <td>{{ menu.descripcion}}</td>
+                    <td bgcolor="#f0ffff">{{ menu.precio }} € Iva Incluido</td>
+
 
                 </tr>
+                <tr><td align="center" colspan="2">{{ menu.descripcion}}</td></tr>
+                <tr><td  colspan="2"><a href="{{ path('vercarta',{'menu': menu.id}) }}">Ver carta</a></td></tr>
+                <tr><td  colspan="2"><hr></td></tr>
             {% else %}
                 Aún no existen menús
             {% endfor %}
+            </table>
 
 
-
-            {% for conjunto in articulos %}
+            {#{% for conjunto in articulos %}
                 {% for producto in conjunto %}
                     <br>{{ producto.nombre }}
                     <br>{{ producto.tipo }}
                 {% endfor %}
-            {% endfor %}
+            {% endfor %}#}
 
         </div>
 
@@ -72,7 +77,7 @@
         <div class="row">
             <div class="col-md-12">
                 <hr>
-        <h3>Comentarios</h3>
+        <h3><i class="fa fa-comments-o"></i> Comentarios</h3>
 <table>
         {% for comentario in comentarios %}
             <tr>

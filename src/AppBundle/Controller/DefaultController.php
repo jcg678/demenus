@@ -808,6 +808,35 @@ class DefaultController extends Controller
         );
 
     }
-    
+
+
+    /**
+     * @Route("/vercarta/{menu}", name="vercarta")
+     */
+
+    public function verCarta (Request $request, Menu $menu)
+    {
+        /**
+         * @var EntityRepository
+         */
+        $articulosRepository = $this->getDoctrine()->getEntityManager()
+            ->getRepository('AppBundle:Articulo');
+
+
+        $articulos = $articulosRepository
+            ->createQueryBuilder('a')
+            ->where('a.menu = :men')
+            ->setParameter('men', $menu)
+            ->orderBy('a.tipo')
+            ->getQuery()
+            ->getResult();
+        
+        
+        return $this->render('publico/carta.html.twig', [
+            'articulos' => $articulos,
+            'menu' => $menu
+            
+        ]);
+    }
 
 }
