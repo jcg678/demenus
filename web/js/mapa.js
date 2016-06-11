@@ -64,6 +64,7 @@ function pintaPuntos(objetos) {
     objetos.forEach(function (item) {
         marker = new google.maps.Marker({
             position: new google.maps.LatLng(item.latitud, item.longitud),
+            icon: 'images/marker/marker.png',
             map: map,
             title: item.nombre,
             animation: google.maps.Animation.DROP,
