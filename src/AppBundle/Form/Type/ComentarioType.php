@@ -5,7 +5,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class MenuType extends AbstractType
+class ComentarioType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -14,31 +14,23 @@ class MenuType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nombre')
-            ->add('precio')
-            ->add('descripcion')
+            ->add('texto')
+            
+            
             ->add('guardar', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', [
                 'attr' => [
                     'class' => "btn-success"
                 ],
-                'label' => 'Guardar Menú'
+                'label' => 'Enviar'
             ]);
 
-        if (false === $options['nuevo']) {
-            $builder
-                ->add('borrar', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', [
-                    'attr' => [
-                        'class' => "btn-danger"
-                    ],
-                    'label' => 'Borrar '
-                ]);
-        }
+        
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'AppBundle\Entity\Menu',
+            'data_class' => 'AppBundle\Entity\Comentario',
             'nuevo' => true
         ]);
     }

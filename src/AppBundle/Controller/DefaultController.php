@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Articulo;
 use AppBundle\Entity\Comentario;
+use AppBundle\Form\Type\ComentarioType;
 use AppBundle\Form\Type\LocalType;
 use AppBundle\Form\Type\MenuType;
 use AppBundle\Form\Type\ArticuloType;
@@ -735,8 +736,16 @@ class DefaultController extends Controller
     /**
      * @Route("/verficha/{local}", name="verficha")
      */
-    public function ficha(Local $local)
+    public function ficha(Request $request,Local $local)
     {
+
+
+        $comentario = new Comentario();
+
+        $form = $this->createForm(ComentarioType::class, $comentario);
+
+        $form->handleRequest($request);
+        
         $em = $this->getDoctrine()->getManager();
         /**
          * @var EntityRepository $localesRepository
@@ -744,7 +753,7 @@ class DefaultController extends Controller
 
         $localesRepository = $this->getDoctrine()->getEntityManager()
             ->getRepository('AppBundle:Local');
-
+        $pass=$local->getId();
 
         $local = $localesRepository
             ->createQueryBuilder('l')
@@ -754,6 +763,18 @@ class DefaultController extends Controller
             ->getResult();
         $helper = $this->container->get('vich_uploader.templating.helper.uploader_helper');
         $imagen = $helper->asset($local[0], 'fotoImage');
+
+        if ($form->isValid()) {
+
+            $comentario->setAviso('0');
+            $comentario->setLocal($local[0]);
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($comentario);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('verficha',array('local' => $pass)));
+        }
 
 
         $comentariosRepository = $this->getDoctrine()->getEntityManager()
@@ -802,7 +823,8 @@ class DefaultController extends Controller
                 'ImagenLocal' => $imagen,
                 'comentarios' => $comentarios,
                 'menus' => $menus,
-                'articulos'=>$todos
+                'articulos'=>$todos,
+                'form' => $form->createView()
             ]
 
         );
@@ -816,6 +838,9 @@ class DefaultController extends Controller
 
     public function verCarta (Request $request, Menu $menu)
     {
+
+       
+        
         /**
          * @var EntityRepository
          */
@@ -834,7 +859,8 @@ class DefaultController extends Controller
         
         return $this->render('publico/carta.html.twig', [
             'articulos' => $articulos,
-            'menu' => $menu
+            'menu' => $menu,
+            
             
         ]);
     }
