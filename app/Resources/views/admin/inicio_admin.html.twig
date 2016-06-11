@@ -6,12 +6,13 @@
         Tienes avisos revisalos aquí
         <a href="{{ path('comentarios_admin') }}" class="nav-link nav-toggle">
             Ver
-        </a>
+        </a><br>
     {% else %}
         Hoy, no tiene reclamaciones de los clientes !Enhorabuena¡
+        <br>
 
     {% endif %}
-
+<br>
     <div class="row">
         <div class="col-lg-2 col-sm-2"></div>
         <div class="col-lg-2 col-sm-2"><a href="{{ path('locales')}}"><img alt="" width="300px" src="{{ asset('images/usuarios/user_local.png') }}" /></a></div>

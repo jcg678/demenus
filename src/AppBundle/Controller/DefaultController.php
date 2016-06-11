@@ -634,6 +634,10 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
         $em->persist($usuario);
         $em->flush();
+        $this->get('session')->getFlashBag()->add(
+            'notice',
+            'cambios_ok'
+        );
     
         return $this->redirect($this->generateUrl('usuarios'));
         
@@ -672,6 +676,10 @@ class DefaultController extends Controller
     {
         $this->getDoctrine()->getManager()->remove($comentario);
         $this->getDoctrine()->getManager()->flush();
+        $this->get('session')->getFlashBag()->add(
+            'notice',
+            'eliminado_ok'
+        );
         return $this->redirect($this->generateUrl('comentarios_admin'));
     }
 
