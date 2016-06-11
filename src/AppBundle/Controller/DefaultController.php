@@ -865,4 +865,15 @@ class DefaultController extends Controller
         ]);
     }
 
+    /**
+     * @Route("/publico", name="publico")
+     */
+    public function indexPublico(Request $request)
+    {
+        
+        return $this->render(':publico:publico.html.twig');
+
+
+    }
+    
 }

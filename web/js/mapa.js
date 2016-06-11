@@ -71,7 +71,8 @@ function pintaPuntos(objetos) {
 
         puntos.push(marker);
 
-        var contentString ="Nombre:"+item.nombre+"<br>"+"<a href='verficha/"+item.id+"' target='_blank' >Ver ficha</a>";
+        var contentString ="<h4><i class='fa fa-cutlery'></i>  "+item.nombre+"</h4>"
+            +"<h5><i class='fa fa-list-alt'></i>  <a href='verficha/"+item.id+"' target='_blank' >Ver ficha</a></h5>";
         var infowindow = new google.maps.InfoWindow({
             content: contentString
         });
