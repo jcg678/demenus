@@ -189,6 +189,10 @@ class DefaultController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($local);
             $em->flush();
+            $this->get('session')->getFlashBag()->add(
+                'notice',
+                'nuevo_ok'
+            );
 
             return $this->redirect($this->generateUrl('usuario_menu'));
         }
@@ -216,9 +220,9 @@ class DefaultController extends Controller
             $user=$local->getPropietario();
             $this->getDoctrine()->getManager()->flush();
 
-            $this->addFlash(
+            $this->get('session')->getFlashBag()->add(
                 'notice',
-                'Your changes were saved!'
+                'cambios_ok'
             );
             
 
@@ -308,7 +312,10 @@ class DefaultController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($menu);
             $em->flush();
-
+            $this->get('session')->getFlashBag()->add(
+                'notice',
+                'nuevo_ok'
+            );
             return $this->redirect($this->generateUrl('menus',array('propietario'=>$user->getId())));
         }
 
@@ -332,6 +339,10 @@ class DefaultController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
 
 
+            $this->get('session')->getFlashBag()->add(
+                'notice',
+                'cambios_ok'
+            );
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirect($this->generateUrl('menus',array('propietario'=>$user->getId())));
@@ -394,7 +405,10 @@ class DefaultController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($articulo);
             $em->flush();
-
+            $this->get('session')->getFlashBag()->add(
+                'notice',
+                'nuevo_ok'
+            );
             return $this->redirect($this->generateUrl('mostrararticulo',array('menu'=>$menu->getId())));
         }
 
@@ -426,7 +440,11 @@ class DefaultController extends Controller
             if ($form->get('borrar')->isClicked()) {
                                              $this->getDoctrine()->getManager()->remove($articulo);
                                                     }
-            
+
+            $this->get('session')->getFlashBag()->add(
+                'notice',
+                'cambios_ok'
+            );
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirect($this->generateUrl('mostrararticulo',array('menu'=>$menu->getId())));
@@ -446,6 +464,10 @@ class DefaultController extends Controller
         $em = $this-> getDoctrine()->getManager();
         $em->remove($articulo);
         $em->flush();
+        $this->get('session')->getFlashBag()->add(
+            'notice',
+            'eliminado_ok'
+        );
 
         return $this->redirect($this->generateUrl('mostrararticulo',array('menu'=>$menu->getId())));
     }
@@ -472,11 +494,20 @@ class DefaultController extends Controller
             $router = $this->container->get('router');
             // replace this example code with whatever you need
             if ($authChecker->isGranted('ROLE_ADMIN')) {
+                $this->get('session')->getFlashBag()->add(
+                    'notice',
+                    'cambios_ok'
+                );
                 return $this->redirectToRoute('locales');
+
             }
             if ($authChecker->isGranted('ROLE_CLIENTE')) {
 
                 $user=$local->getPropietario();
+                $this->get('session')->getFlashBag()->add(
+                    'notice',
+                    'cambios_ok'
+                );
                 return $this->redirect($this->generateUrl('local',array('propietario' => $user->getId())));
 
 
@@ -518,7 +549,10 @@ class DefaultController extends Controller
         for ( $i = 0 ; $i < sizeof($articulos) ; $i ++) {
             $em->remove($articulos[$i]);
         }
-
+        $this->get('session')->getFlashBag()->add(
+            'notice',
+            'eliminado_ok'
+        );
 
         $em->remove($menu);
         $em->flush();
@@ -671,11 +705,18 @@ class DefaultController extends Controller
             $router = $this->container->get('router');
             // replace this example code with whatever you need
             if ($authChecker->isGranted('ROLE_ADMIN')) {
+                $this->get('session')->getFlashBag()->add(
+                    'notice',
+                    'cambios_ok'
+                );
                 return $this->redirectToRoute('comentarios_admin');
             }
 
         }
-
+        $this->get('session')->getFlashBag()->add(
+            'notice',
+            'cambios_ok'
+        );
 
         return $this->redirect($this->generateUrl('vercomentarios',array('usuario' => $user->getId())));
 

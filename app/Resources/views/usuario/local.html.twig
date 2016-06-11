@@ -4,20 +4,20 @@
     {% if local %}
         <div class="well well-lg"><h1 >{{ local[0].nombre }}</h1></div>
 
-        <i class="fa fa-phone"></i>:{{ local[0].telefono }}<br>
-        <i class="fa fa-home"></i>{{ local[0].cp }}<br>
-        <i class="fa fa-home"></i>{{ local[0].localidad }}<br>
-        <i class="fa fa-home"></i>{{ local[0].provincia }}<br>
+        <i class="fa fa-phone"></i> {{ local[0].telefono }}<br>
+        Código Postal: {{ local[0].cp }}<br>
+        Localidad: {{ local[0].localidad }}<br>
+        Provincia: {{ local[0].provincia }}<br>
         {% if local[0].direccion == null %}
-            <i class="fa fa-home"></i>Aún no existe dirección<br>
+            Aún no existe dirección<br>
             {% else %}
-                <i class="fa fa-home"></i>{{ local[0].direccion }}<br>
+                Dirección: {{ local[0].direccion }}<br>
         {% endif %}
 
         {% if local[0].numero == null %}
-            <i class="fa fa-home"></i>Aún no existe número<br>
+            Aún no existe número<br>
         {% else %}
-            <i class="fa fa-home"></i>{{ local[0].numero }}<br>
+            Número: {{ local[0].numero }}<br>
         {% endif %}
 
         <div class="col-md-6">

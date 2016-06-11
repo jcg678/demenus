@@ -2,14 +2,24 @@
 
 {% block body %}
 
-
+<h3 class="well-lg">Menús disponibles</h3>
     {% if local %}
-        <table>
+        <table class="table ">
+            <thead>
+            <tr bgcolor="#a9a9a9">
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Descripción</th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+            </thead>
             {% for menu in menus %}
                 <tr>
                     <td>{{ menu.nombre }}</td>
-                    <td>{{ menu.precio }}</td>
-                    <td>{{ menu.descripcion }}</td>
+                    <td>{{ menu.precio }} € IVA includo</td>
+                    <td>{{ menu.descripcion }} </td>
                     <td><a href="{{ path('modificarmenu',{'menu': menu.id}) }}" class="btn btn-default btn-sm"></i>Editar Menú</a></td>
                     <td><a href="{{ path('mostrararticulo',{'menu': menu.id}) }}" class="btn btn-default btn-sm"></i>Mostrar Articulos</a></td>
                     <td><a href="{{ path('eliminarmenu',{'menu': menu.id}) }}" class="btn btn-danger btn-sm"></i>Eliminar Menú</a></td>

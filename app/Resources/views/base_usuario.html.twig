@@ -19,6 +19,7 @@
         
         <link href="{{ asset('font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css" />
         <link href="{{ asset('css/estilos.css') }}" rel="stylesheet" type="text/css" />
+
         <link href="{{ asset('css/simple-line-icons.min.css') }}" rel="stylesheet" type="text/css" />
         <link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap.css') }}" />
         <link href="{{ asset('css/bootstrap-switch.min.css') }}" rel="stylesheet" type="text/css" />
@@ -279,11 +280,82 @@ document.write(year);
         <script type="text/javascript" src="{{ asset('js/bootstrap-toastr/toastr.min.js') }}"></script>
         <!-- END THEME LAYOUT SCRIPTS -->
 
-        {% for flash_message in app.session.flashBag.get('notice') %}
-            <div class="flash-notice">
-                {{ flash_message }}
-            </div>
+        {% for flashMessage in app.session.flashbag.get('notice') %}
+            <script type="text/javascript">
+                var mensajes=["Añadido Correctamente",
+                    "Actualizado Correctamente",
+                    "Eliminado Correctamente"
+                ]
+
+                if("{{flashMessage}}"=="nuevo_ok"){
+                    toastr.options = {
+                        "closeButton": false,
+                        "debug": false,
+                        "newestOnTop": false,
+                        "progressBar": false,
+                        "positionClass": "toast-top-right",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "showDuration": "300",
+                        "hideDuration": "1000",
+                        "timeOut": "5000",
+                        "extendedTimeOut": "1000",
+                        "showEasing": "swing",
+                        "hideEasing": "linear",
+                        "showMethod": "fadeIn",
+                        "hideMethod": "fadeOut"
+                    }
+                    var toast=toastr["success"](mensajes[0]);
+                }
+
+                if("{{flashMessage}}"=="cambios_ok"){
+                    toastr.options = {
+                        "closeButton": false,
+                        "debug": false,
+                        "newestOnTop": false,
+                        "progressBar": false,
+                        "positionClass": "toast-top-right",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "showDuration": "300",
+                        "hideDuration": "1000",
+                        "timeOut": "5000",
+                        "extendedTimeOut": "1000",
+                        "showEasing": "swing",
+                        "hideEasing": "linear",
+                        "showMethod": "fadeIn",
+                        "hideMethod": "fadeOut"
+                    }
+                    var toast=toastr["info"](mensajes[1]);
+                }
+
+                if("{{flashMessage}}"=="eliminado_ok"){
+                    toastr.options = {
+                        "closeButton": false,
+                        "debug": false,
+                        "newestOnTop": false,
+                        "progressBar": false,
+                        "positionClass": "toast-top-right",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "showDuration": "300",
+                        "hideDuration": "1000",
+                        "timeOut": "5000",
+                        "extendedTimeOut": "1000",
+                        "showEasing": "swing",
+                        "hideEasing": "linear",
+                        "showMethod": "fadeIn",
+                        "hideMethod": "fadeOut"
+                    }
+                    var toast=toastr["warning"](mensajes[2]);
+                }
+
+
+
+            </script>
+
         {% endfor %}
+
 
     </body>
 
