@@ -661,7 +661,7 @@ class DefaultController extends Controller
             ->orderBy('c.aviso','desc')
             ->getQuery()
             ->getResult();
-        dump($comentarios);
+        
 
         return $this->render(':admin:comentarios_admin.html.twig', [
             'comentarios'=>$comentarios,
@@ -754,7 +754,7 @@ class DefaultController extends Controller
             ->getResult();
 
         $resultado = json_encode($locales);
-        dump($resultado);
+        
         return new Response($resultado);
     }
 
@@ -778,7 +778,7 @@ class DefaultController extends Controller
             ->getResult();
 
         $resultado = json_encode($locales);
-        dump($resultado);
+        
         return new Response($resultado);
     }
 
@@ -864,7 +864,7 @@ class DefaultController extends Controller
                 ->getResult();
             $todos[$i]=$articulos;
         }
-        dump($todos);
+        
         
         return $this->render(':publico:fichalocal.html.twig',
             [
