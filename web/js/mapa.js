@@ -7,9 +7,31 @@ var allInfos = [];
 
 $( document ).ready(function() {
     $('#quitar').click(function () {
-        console.log(puntos);
+        //console.log(puntos);
        removepuntos(puntos);
     });
+
+    $('#buscar').click(function () {
+        nombre = $("#nombre").val();
+        removepuntos(puntos);
+
+        $.ajax({
+            url: "busqueda_avanzada",
+            data: {nombre: nombre},
+            scriptCharset: "utf-8",
+            type: 'POST',
+            dataType: 'json',
+            success: function (data) {
+                pintaPuntos(data);
+
+            },
+            error: function (xhr, status) {
+                alert('Disculpe, existió un problema ->' + status);
+            }
+        });
+
+    });
+    
 });
 
 
@@ -97,13 +119,9 @@ function initMap()
     function success(pos) {
 
         var crd = pos.coords;
-         latitud= crd.latitude;
+        latitud= crd.latitude;
         longitud=crd.longitude;
 
-        console.log('Your current position is:');
-        console.log('Latitude : ' + crd.latitude);
-        console.log('Longitude: ' + crd.longitude);
-        console.log('More or less ' + crd.accuracy + ' meters.');
         var punto = {lat: latitud, lng: longitud};
         zoom=14;
 
@@ -121,11 +139,11 @@ function initMap()
 
 
 
-    if (navigator.geolocation) {
+    if (navigator.geolocation)
+    {
         punto = {lat: 37.8139348, lng: -3.3807777};
         zoom = 9;
         navigator.geolocation.getCurrentPosition(success, crearMapa(punto,zoom));
-
     }
     else
     {
@@ -133,11 +151,7 @@ function initMap()
         console.log("XXx");
         var punto = {lat: 37.8139348, lng: -3.3807777};
         crearMapa(punto,zoom);
-
     }
-
-    console.log("prueba");
-
 
     
 }
@@ -150,4 +164,9 @@ function closeInfos() {
 }
 
 
+function buscar() {
 
+
+    
+
+}

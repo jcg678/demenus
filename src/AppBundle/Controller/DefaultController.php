@@ -763,6 +763,8 @@ class DefaultController extends Controller
      */
     public function busqueda_avanzada(Request $request)
     {
+        $nombre = $request->request->get('nombre');
+        dump($nombre);
         $em = $this->getDoctrine()->getManager();
         /**
          * @var EntityRepository $localesRepository
@@ -774,6 +776,8 @@ class DefaultController extends Controller
             ->addSelect('u.latitud')
             ->addSelect('u.longitud')
             ->where('u.activo = 1')
+            ->andWhere('u.nombre LIKE :texto')
+            ->setParameter('texto','%'.$nombre.'%')
             ->getQuery()
             ->getResult();
 
