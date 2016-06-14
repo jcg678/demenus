@@ -25,9 +25,23 @@
             </li>
             <li>
                 <p>Nombre</p>
+
+                <input id="nombre" type="text"/>
             </li>
             <li>
-                <input id="nombre" type="text"/>
+                <p>Provincia</p>
+
+                <input id="provincia" type="text"/>
+            </li>
+            <li>
+                <p>Localidad</p>
+
+                <input id="localidad" type="text"/>
+            </li>
+            <li>
+                <p>Código Postal</p>
+
+                <input id="cp" type="text"/>
             </li>
             <li>
                 <button id="buscar" href="#">Buscar</button>
@@ -57,8 +71,8 @@
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="{{ path("homepage") }}">Home</a></li>
-                    <li class="active"><a  data-toggle="modal" data-target="#myModal">Más info</a></li>
-                    <li><a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Búsqueda</a></li>
+                    <li class="active"><a  href="#" data-toggle="modal" data-target="#myModal">Más info</a></li>
+                    <li><a href="#menu-toggle"  id="menu-toggle">Búsqueda</a></li>
                     <li class="dropdown">
 
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span class="caret"></span></a>

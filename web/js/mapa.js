@@ -13,11 +13,15 @@ $( document ).ready(function() {
 
     $('#buscar').click(function () {
         nombre = $("#nombre").val();
+        localidad=$("#localidad").val();
+        cp=$("#cp").val();
+        provincia=$("#provincia").val();
+
         removepuntos(puntos);
 
         $.ajax({
             url: "busqueda_avanzada",
-            data: {nombre: nombre},
+            data: {nombre: nombre,localidad: localidad,cp: cp,provincia: provincia},
             scriptCharset: "utf-8",
             type: 'POST',
             dataType: 'json',

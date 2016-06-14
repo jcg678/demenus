@@ -764,23 +764,49 @@ class DefaultController extends Controller
     public function busqueda_avanzada(Request $request)
     {
         $nombre = $request->request->get('nombre');
-        dump($nombre);
+        $localidad = $request->request->get('localidad');
+        $provincia = $request->request->get('provincia');
+        $cp = $request->request->get('cp');
+        //dump($nombre);
         $em = $this->getDoctrine()->getManager();
         /**
          * @var EntityRepository $localesRepository
          */
         $localesRepository = $em->getRepository('AppBundle:Local');
-        $locales = $localesRepository->createQueryBuilder('u')
-            ->select('u.id')
-            ->addSelect('u.nombre')
-            ->addSelect('u.latitud')
-            ->addSelect('u.longitud')
-            ->where('u.activo = 1')
-            ->andWhere('u.nombre LIKE :texto')
-            ->setParameter('texto','%'.$nombre.'%')
-            ->getQuery()
-            ->getResult();
+        if(empty($cp)){
+            $locales = $localesRepository->createQueryBuilder('u')
+                ->select('u.id')
+                ->addSelect('u.nombre')
+                ->addSelect('u.latitud')
+                ->addSelect('u.longitud')
+                ->where('u.activo = 1')
+                ->andWhere('u.nombre LIKE :nombre')
+                ->andWhere('u.localidad LIKE :localidad')
+                ->andWhere('u.provincia LIKE :provincia')
+                ->setParameter('nombre', '%' . $nombre . '%')
+                ->setParameter('localidad', '%' . $localidad . '%')
+                ->setParameter('provincia', '%' . $provincia . '%')
+                ->getQuery()
+                ->getResult();
 
+        }else {
+            $locales = $localesRepository->createQueryBuilder('u')
+                ->select('u.id')
+                ->addSelect('u.nombre')
+                ->addSelect('u.latitud')
+                ->addSelect('u.longitud')
+                ->where('u.activo = 1')
+                ->andWhere('u.nombre LIKE :nombre')
+                ->andWhere('u.localidad LIKE :localidad')
+                ->andWhere('u.provincia LIKE :provincia')
+                ->andWhere('u.cp = :cp')
+                ->setParameter('nombre', '%' . $nombre . '%')
+                ->setParameter('localidad', '%' . $localidad . '%')
+                ->setParameter('provincia', '%' . $provincia . '%')
+                ->setParameter('cp', $cp)
+                ->getQuery()
+                ->getResult();
+        }
         $resultado = json_encode($locales);
         
         return new Response($resultado);
