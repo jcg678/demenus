@@ -87,7 +87,8 @@
 </header>
 
 
-<div id="map"></div>
+{% block body %}
+{% endblock %}
 <div id="myModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
 
@@ -123,9 +124,7 @@
 
 {% block javascripts %}
     <script type="text/javascript" src="{{ asset('js/jquery-1.12.3.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/mapa.js') }}"></script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDOPiuIXZzv__WGIHgdZHjUO4gq_sf_LUQ&callback=initMap"
-            type="text/javascript"></script>
+
 
     <script type="text/javascript" src="{{ asset('bootstrap/js/bootstrap.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/bootstrap-toastr/toastr.min.js') }}"></script>
