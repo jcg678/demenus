@@ -612,7 +612,11 @@ class DefaultController extends Controller
 
         $usuariosRepository = $em->getRepository('AppBundle:Usuario');
 
-        $usuarios = $usuariosRepository->findAll();
+        $usuarios = $usuariosRepository->createQueryBuilder('u')
+                ->where('u.roles LIKE :roles')
+                ->setParameter('roles', '%ROLE_CLIENTE%')
+                ->getQuery()
+                ->getResult();
         
 
         return $this->render(':admin:listadousuarios.html.twig', [
