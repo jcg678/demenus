@@ -1,8 +1,8 @@
-#map{
+/*#map{
     margin-top: -20px;
-    height: 1000px;
+    height: 100%;
     width: 100%;
-}
+}*/
 
 #map2{
     height: 200px;
@@ -15,8 +15,12 @@
     width: 100%;
 }
 
-footer{
-    background-color: black;
-    color:white;
+footer
+{
+    width: 100%;
+    bottom: 0;
+    position: absolute;
     height: 50px;
+    background-color: black;
+    color: white;
 }
