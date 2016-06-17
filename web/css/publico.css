@@ -7,9 +7,11 @@ html, body, #map {
 
 #map{
     margin-top: -40px;
+    z-index: 1;
+
 }
 footer{margin-bottom: -12px;
-
+z-index: 2;
 }
 .busqueda{
    padding: 10px!important;
@@ -20,3 +22,4 @@ footer{margin-bottom: -12px;
 header{
     z-index: 1003;
 }
+

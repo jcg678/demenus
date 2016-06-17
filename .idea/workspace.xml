@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="c1fea79c-2d1c-48f0-b56e-7c7dbeb1aae2" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/publico/carta.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/publico/carta.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/publico/fichalocal.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/publico/fichalocal.html.twig" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/css/publico.css" afterPath="$PROJECT_DIR$/web/css/publico.css" />
     </list>
     <ignored path="demenus.iws" />
@@ -70,8 +68,8 @@
       <file leaf-file-name="publico.css" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/web/css/publico.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="17" column="1" selection-start-line="17" selection-start-column="1" selection-end-line="17" selection-end-column="1" />
+            <state relative-caret-position="375">
+              <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -448,7 +446,7 @@
       <workItem from="1465911250331" duration="12199000" />
       <workItem from="1466021876071" duration="6316000" />
       <workItem from="1466111627467" duration="1992000" />
-      <workItem from="1466172846091" duration="2824000" />
+      <workItem from="1466172846091" duration="3088000" />
     </task>
     <task id="LOCAL-00001" summary="Añadido formulario menu , ya se añaden menus">
       <created>1463997694630</created>
@@ -461,7 +459,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="216644000" />
+    <option name="totallyTimeSpent" value="216908000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -877,8 +875,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/web/css/publico.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" column="1" selection-start-line="17" selection-start-column="1" selection-end-line="17" selection-end-column="1" />
+        <state relative-caret-position="375">
+          <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
           <folding />
         </state>
       </provider>
