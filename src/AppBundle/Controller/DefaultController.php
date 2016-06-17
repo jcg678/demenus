@@ -958,5 +958,16 @@ class DefaultController extends Controller
 
 
     }
+
+
+
+
+    public function pageNotFoundAction()
+    {
+        return $this->render(':publico:publico.html.twig');
+
+    }
+
+
     
 }
