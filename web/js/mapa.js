@@ -26,6 +26,7 @@ $( document ).ready(function() {
             type: 'POST',
             dataType: 'json',
             success: function (data) {
+                lanzarToast(data.length);
                 pintaPuntos(data);
 
             },
@@ -87,6 +88,7 @@ function crearMapa(punto,zoom){
 function pintaPuntos(objetos) {
     allInfos=[];
     puntos = [];
+
     objetos.forEach(function (item) {
         marker = new google.maps.Marker({
             position: new google.maps.LatLng(item.latitud, item.longitud),
@@ -168,9 +170,45 @@ function closeInfos() {
 }
 
 
-function buscar() {
+function lanzarToast(x) {
+    if(x>1){
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-top-full-width",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+        var toast=toastr["success"]("<b>Hay "+x+" coincidencias</b>");
+    }else{
 
-
-    
-
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-bottom-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+        var toast=toastr["error"]("Ningún resultado");
+    }
 }
