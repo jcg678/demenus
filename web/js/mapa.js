@@ -171,7 +171,7 @@ function closeInfos() {
 
 
 function lanzarToast(x) {
-    if(x>1){
+    if(x>=1){
         toastr.options = {
             "closeButton": false,
             "debug": false,
@@ -197,7 +197,7 @@ function lanzarToast(x) {
             "debug": false,
             "newestOnTop": false,
             "progressBar": false,
-            "positionClass": "toast-bottom-right",
+            "positionClass": "toast-top-full-width",
             "preventDuplicates": false,
             "onclick": null,
             "showDuration": "300",

@@ -122,13 +122,10 @@ class DefaultController extends Controller
             ->setParameter('prop', $user)
             ->getQuery()
             ->getResult();
-
-        //$_SESSION['localid']=$local[0]->getId();
-         //return $this->redirect($this->generateUrl('usuario_menu',array('local' => $local[0]->getId())));
         return $this->render(':usuario:usuario_menu.html.twig'
 
         );
-        //return $this->render(':usuario:usuario_menu.html.twig');
+        
 
     }
 
