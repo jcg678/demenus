@@ -8,6 +8,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityRepository;
 use AppBundle\Entity\Tipo;
 use AppBundle\Form\Type\TipoType;
+use AppBundle\Entity\local;
+use AppBundle\Entity\Comentario;
 
 class AdminController extends Controller
 {
@@ -84,4 +86,81 @@ class AdminController extends Controller
                 
             ]);
     }
+
+
+    /**
+     * @Route("/eliminartodo/{local}", name="eliminartodo")
+     */
+    public function deletetodo(Request $peticion, Local $local)
+    {
+
+        $em = $this-> getDoctrine()->getManager();
+
+        $usuario=$local->getPropietario();
+        $comentarios=$local->getComentarios();
+        $menus=$local->getMenus();
+
+
+        for ( $i = 0 ; $i < sizeof($comentarios) ; $i ++) {
+            $em->remove($comentarios[$i]);
+        }
+
+        $articulosRepository = $this->getDoctrine()->getEntityManager()
+            ->getRepository('AppBundle:Articulo');
+
+
+        for ( $i = 0 ; $i < sizeof($menus) ; $i ++) {
+
+            $articulos = $articulosRepository
+                ->createQueryBuilder('a')
+                ->where('a.menu = :men')
+                ->setParameter('men', $menus[$i])
+                ->getQuery()
+                ->getResult();
+
+            for ( $z = 0 ; $z < sizeof($articulos) ; $z ++) {
+                $em->remove($articulos[$z]);
+            }
+
+            $em->remove($menus[$i]);
+        }
+        $em->remove($usuario);
+        $em->remove($local);
+
+
+
+
+
+
+        $em->flush();
+
+
+        $this->get('session')->getFlashBag()->add(
+            'notice',
+            'eliminado_ok'
+        );
+
+
+
+        return $this->redirect($this->generateUrl('borrar'));
+    }
+
+
+    /**
+     * @Route("/borrar", name="borrar")
+     */
+    public function borrarAction(Request $peticion)
+    {
+
+        $localesRepository = $this->getDoctrine()->getEntityManager()
+            ->getRepository('AppBundle:Local');
+        $locales=$localesRepository->findAll();
+        return $this->render('admin/borrar.html.twig',
+            [
+                'locales' => $locales,
+
+            ]);
+
+    }
+
 }

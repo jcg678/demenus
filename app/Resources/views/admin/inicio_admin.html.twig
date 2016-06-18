@@ -3,12 +3,14 @@
     <h3>Hola, Administrador</h3>
 
     {% if avisos %}
-        Tienes avisos revisalos aquí
+        <h5 class="alert alert-danger"> Tienes avisos revisalos aquí
         <a href="{{ path('comentarios_admin') }}" class="nav-link nav-toggle">
             Ver
-        </a><br>
+        </a></h5><br>
     {% else %}
+        <h5 class="alert alert-success">
         Hoy, no tiene reclamaciones de los clientes !Enhorabuena¡
+        </h5>
         <br>
 
     {% endif %}
