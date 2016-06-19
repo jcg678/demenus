@@ -30,6 +30,26 @@ security:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin/, role: ROLE_ADMIN }
+        - { path: ^/admin, role: ROLE_ADMIN }
+        - { path: ^/banear, role: ROLE_ADMIN }
+        - { path: ^/platos, role: ROLE_ADMIN }
+        - { path: ^/borrar, role: ROLE_ADMIN }
+        - { path: ^/eliminartodo, role: ROLE_ADMIN }
+        - { path: ^/modificartipo, role: ROLE_ADMIN }
         - { path: ^/locales, role: ROLE_ADMIN }
         - { path: ^/local, role: ROLE_CLIENTE }
+        - { path: ^/usuario, role: ROLE_CLIENTE }
+        - { path: ^/tooglelocal, role: ROLE_CLIENTE }
+        - { path: ^/reclamar, role: ROLE_CLIENTE }
+        - { path: ^/articulos, role: ROLE_CLIENTE }
+        - { path: ^/registrararticulos, role: ROLE_CLIENTE }
+        - { path: ^/local, role: ROLE_CLIENTE }
+        - { path: ^/registrarlocal, role: ROLE_CLIENTE }
+        - { path: ^/modificarlocal, role: ROLE_CLIENTE }
+        - { path: ^/menus, role: ROLE_CLIENTE }
+        - { path: ^/registrarmenu, role: ROLE_CLIENTE }
+        - { path: ^/modificarmenu, role: ROLE_CLIENTE }
+        - { path: ^/modificararticulo, role: ROLE_CLIENTE }
+        - { path: ^/eliminararticulo, role: ROLE_CLIENTE }
+        - { path: ^/eliminarmenu, role: ROLE_CLIENTE }
+        - { path: ^/comentarios, role: ROLE_CLIENTE }
