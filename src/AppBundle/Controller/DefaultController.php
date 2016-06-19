@@ -267,9 +267,7 @@ class DefaultController extends Controller
 
 
 
-        /*if(empty($local)){
-            return $this->render(':publico:publico.html.twig');
-        }*/
+        
         return $this->render('usuario/menu.html.twig', [
             'menus' => $menus,
             'local' => $local
@@ -374,9 +372,7 @@ class DefaultController extends Controller
             ->getResult();
 
 
-        /*if(empty($local)){
-            return $this->render(':publico:publico.html.twig');
-        }*/
+       
         return $this->render('usuario/articulos.html.twig', [
             'articulos' => $articulos,
             'menu'=> $menu

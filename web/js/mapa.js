@@ -4,11 +4,17 @@ var longitud;
 var map;
 var puntos =[];
 var allInfos = [];
+var markerCluster;
 
 $( document ).ready(function() {
     $('#quitar').click(function () {
-        //console.log(puntos);
+
        removepuntos(puntos);
+    });
+
+    $('#reiniciar').click(function () {
+
+        initMap();
     });
 
     $('#buscar').click(function () {
@@ -41,10 +47,12 @@ $( document ).ready(function() {
 
 
 function  removepuntos(conjunto) {
+
     conjunto.forEach(function (marker) {
         marker.setMap(null);
         
     });
+    markerCluster.clearMarkers();
 }
 
 function cargartodos() {
@@ -113,7 +121,7 @@ function pintaPuntos(objetos) {
         }));
 
     })
-
+    markerCluster = new MarkerClusterer(map, puntos);
 
 }
 
@@ -136,7 +144,7 @@ function initMap()
         var marker = new google.maps.Marker({
             position:punto,
             map: map,
-            title: 'Hello World!'
+            title: 'DeMenus'
         });
         marker.setIcon('https://dl.dropboxusercontent.com/u/20056281/Iconos/male-2.png');
 
@@ -154,7 +162,7 @@ function initMap()
     else
     {
         zoom=16;
-        console.log("XXx");
+
         var punto = {lat: 37.8139348, lng: -3.3807777};
         crearMapa(punto,zoom);
     }

@@ -48,12 +48,13 @@
 
             <br><br>
                 <button  class="btn btn-success" id="buscar" href="#"><i class="fa fa-search"></i> Buscar</button>
+                <button  class="btn btn-info" id="reiniciar" href="#"><i class="fa fa-repeat"></i> Reinciar</button>
             <br><br>
 
                 <button class="btn btn-danger" id="ocultar" href="#"><i class="fa fa-times"></i> Ocultar</button>
             <br><br>
 
-                <button id="quitar" href="#">quitar todos</button>
+
 
         </ul>
     </div>
@@ -98,9 +99,12 @@
                 <h4 class="modal-title">Bienvenido a Demenus.es</h4>
             </div>
             <div class="modal-body">
-                <p>Que puedes encontrar en esta web:</p>
-                <p>Puedes localizar locales con menús más cercanos</p>
-                <p>Si tienes un bar/restaurante puedes públicar tu establecimiento y tus menús</p>
+                <img class="img-responsive" src="{{ asset('images/logo_color.png') }}" >
+                <br>
+                <p><b>Que puedes encontrar en esta web:</b></p>
+                <p><b>Puedes localizar locales con menús más cercanos</b></p>
+                <p><b>Si tienes un bar/restaurante puedes públicar tu establecimiento y tus menús</b></p>
+                <h4><i class="fa fa-android"></i> Descarga nuestra App para Android desde<a href="http://www.frecuencyconceptart.es/descargas/demenus.apk"> aquí</a></h4>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
@@ -124,6 +128,7 @@
 {% block javascripts %}
     <script type="text/javascript" src="{{ asset('js/jquery-1.12.3.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/mapa.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/markerclusterer.js') }}"></script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDOPiuIXZzv__WGIHgdZHjUO4gq_sf_LUQ&callback=initMap"
             type="text/javascript"></script>
 
