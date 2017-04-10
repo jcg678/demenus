@@ -2,14 +2,22 @@
 
 namespace AppBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use AppBundle\Entity\Articulo;
+use AppBundle\Entity\Comentario;
+use AppBundle\Form\Type\ComentarioType;
+use AppBundle\Form\Type\LocalType;
+use AppBundle\Form\Type\MenuType;
+use AppBundle\Form\Type\ArticuloType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityRepository;
-use AppBundle\Entity\Tipo;
-use AppBundle\Form\Type\TipoType;
-use AppBundle\Entity\local;
-use AppBundle\Entity\Comentario;
+use AppBundle\Entity\Local;
+use AppBundle\Entity\Usuario;
+use AppBundle\Entity\Menu;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Response;
 
 class AdminController extends Controller
 {
@@ -162,5 +170,202 @@ class AdminController extends Controller
             ]);
 
     }
+
+
+    /**
+     * @Route("/admin", name="inicio_admin")
+     */
+    public function inicioadminAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $comentariosRepository = $this->getDoctrine()->getEntityManager()
+            ->getRepository('AppBundle:Comentario');
+
+
+        $avisos = $comentariosRepository
+            ->createQueryBuilder('l')
+            ->select('COUNT(l)')
+            ->where('l.aviso = 1')
+            ->getQuery()
+            ->getSingleScalarResult();
+
+
+        return $this->render(':admin:inicio_admin.html.twig',
+            [
+                'avisos'=>$avisos
+            ]
+
+
+        );
+
+    }
+
+
+    /**
+     * @Route("/admin/locales", name="locales")
+     */
+    public function localesAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        /**
+         * @var EntityRepository $localesRepository
+         */
+
+        $localesRepository = $em->getRepository('AppBundle:Local');
+
+        $locales = $localesRepository->findAll();
+
+
+        return $this->render(':admin:listadolocales.html.twig', [
+            'locales'=>$locales,
+
+        ]);
+
+    }
+
+
+    /**
+     * @Route("/tooglelocal/{local}", name="tooglelocal")
+     */
+
+    public function toogleLocal(Request $request, Local $local)
+    {
+
+        $cambio=$local->getActivo();
+        $local->setActivo(!$cambio);
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($local);
+        $em->flush();
+
+        $session = $request->getSession();
+
+        if (false === $session->has('_security.main.target_path')) {
+
+            $authChecker = $this->container->get('security.authorization_checker');
+            $router = $this->container->get('router');
+            // replace this example code with whatever you need
+            if ($authChecker->isGranted('ROLE_ADMIN')) {
+                $this->get('session')->getFlashBag()->add(
+                    'notice',
+                    'cambios_ok'
+                );
+                return $this->redirectToRoute('locales');
+
+            }
+            if ($authChecker->isGranted('ROLE_CLIENTE')) {
+
+                $user=$local->getPropietario();
+                $this->get('session')->getFlashBag()->add(
+                    'notice',
+                    'cambios_ok'
+                );
+                return $this->redirect($this->generateUrl('local',array('propietario' => $user->getId())));
+
+
+
+            }
+        } else {
+            return new RedirectResponse($session->get('_security.main.target_path'));
+        }
+
+
+        return $this->render(':publico:publico.html.twig');
+
+
+
+
+
+    }
+
+
+    /**
+     * @Route("/admin/usuarios", name="usuarios")
+     */
+    public function usuariosAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        /**
+         * @var EntityRepository $usuariosRepository
+         */
+
+        $usuariosRepository = $em->getRepository('AppBundle:Usuario');
+
+        $usuarios = $usuariosRepository->createQueryBuilder('u')
+            ->where('u.roles LIKE :roles')
+            ->setParameter('roles', '%ROLE_CLIENTE%')
+            ->getQuery()
+            ->getResult();
+
+
+        return $this->render(':admin:listadousuarios.html.twig', [
+            'usuarios'=>$usuarios,
+
+        ]);
+
+    }
+
+
+    /**
+     * @Route("/banear/{usuario}", name="banear")
+     */
+    public function banearAction(Request $request,Usuario $usuario)
+    {
+        $cambio=$usuario->isLocked();
+
+        $usuario->setLocked(!$cambio);
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($usuario);
+        $em->flush();
+        $this->get('session')->getFlashBag()->add(
+            'notice',
+            'cambios_ok'
+        );
+
+        return $this->redirect($this->generateUrl('usuarios'));
+
+    }
+
+    /**
+     * @Route("/admin/comentarios", name="comentarios_admin")
+     */
+    public function comentariosadminAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        /**
+         * @var EntityRepository $comentariosRepository
+         */
+
+        $comentariossRepository = $em->getRepository('AppBundle:Comentario');
+
+        $comentarios = $comentariossRepository
+            ->createQueryBuilder('c')
+            ->orderBy('c.aviso','desc')
+            ->getQuery()
+            ->getResult();
+
+
+        return $this->render(':admin:comentarios_admin.html.twig', [
+            'comentarios'=>$comentarios,
+
+        ]);
+
+    }
+    /**
+     * @Route("/admin/removecomentario/{comentario}", name="remove_comentarios")
+     */
+    public function comentariosRemove(Request $request,Comentario $comentario)
+    {
+        $this->getDoctrine()->getManager()->remove($comentario);
+        $this->getDoctrine()->getManager()->flush();
+        $this->get('session')->getFlashBag()->add(
+            'notice',
+            'eliminado_ok'
+        );
+        return $this->redirect($this->generateUrl('comentarios_admin'));
+    }
+
 
 }
