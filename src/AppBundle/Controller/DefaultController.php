@@ -335,7 +335,7 @@ class DefaultController extends Controller
 
         $transport = \Swift_SmtpTransport::newInstance()
             ->setUsername('info@demenus.es')->setPassword('demenus2015')
-            ->setHost('smtp.1and1.es')
+            ->setHost('smtp.1and1.com')
             ->setPort(587)->setEncryption('tls');
 
         $mailer = \Swift_Mailer::newInstance($transport);

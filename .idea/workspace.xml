@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="c1fea79c-2d1c-48f0-b56e-7c7dbeb1aae2" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Controller/DefaultController.php" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/DefaultController.php" />
     </list>
     <ignored path="demenus.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -28,10 +27,11 @@
       <file leaf-file-name="DefaultController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/DefaultController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="260">
-              <caret line="337" column="36" selection-start-line="337" selection-start-column="36" selection-end-line="337" selection-end-column="36" />
+            <state relative-caret-position="305">
+              <caret line="337" column="34" selection-start-line="337" selection-start-column="34" selection-end-line="337" selection-end-column="36" />
               <folding>
                 <element signature="e#40#70#0#PHP" expanded="true" />
+                <marker date="1491841167604" expanded="false" signature="10695:10719" placeholder="publico/prueba" />
               </folding>
             </state>
           </provider>
@@ -373,7 +373,7 @@
       <workItem from="1466325828938" duration="3497000" />
       <workItem from="1466348950212" duration="8326000" />
       <workItem from="1491833180712" duration="1119000" />
-      <workItem from="1491840560475" duration="496000" />
+      <workItem from="1491840560475" duration="939000" />
     </task>
     <task id="LOCAL-00001" summary="Añadido formulario menu , ya se añaden menus">
       <created>1463997694630</created>
@@ -386,7 +386,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="252408000" />
+    <option name="totallyTimeSpent" value="252851000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -803,10 +803,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/DefaultController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="337" column="36" selection-start-line="337" selection-start-column="36" selection-end-line="337" selection-end-column="36" />
+        <state relative-caret-position="305">
+          <caret line="337" column="34" selection-start-line="337" selection-start-column="34" selection-end-line="337" selection-end-column="36" />
           <folding>
             <element signature="e#40#70#0#PHP" expanded="true" />
+            <marker date="1491841167604" expanded="false" signature="10695:10719" placeholder="publico/prueba" />
           </folding>
         </state>
       </provider>
