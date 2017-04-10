@@ -325,5 +325,58 @@ class DefaultController extends Controller
     }
 
 
-    
+
+
+    /**
+     * @Route("/2prueba", name="2prueba")
+     */
+    public function prueba2Action($name = 'paco')        
+    {
+
+        $transport = \Swift_SmtpTransport::newInstance()
+            ->setUsername('info@demenus.es')->setPassword('demenus2015')
+            ->setHost('smtp.1and1.es')
+            ->setPort(587)->setEncryption('tls');
+
+        $mailer = \Swift_Mailer::newInstance($transport);
+
+        $message = \Swift_Message::newInstance()
+            ->setSubject('Hola')
+            ->setFrom(array('info@demenus.es' => 'I am someone'))
+            ->setTo(array('jcg678@hotmail.es' => "jcg678@hotmail.es"))
+            ->addPart("<h1>Welcome</h1>",'text/html')
+        ;
+
+        $result = $mailer->send($message);
+        /*
+        $message = \Swift_Message::newInstance()
+            ->setSubject('Correo de prueba')
+            ->setFrom('info@demenus.es')
+            ->setTo('jcg678@hotmail.es')
+            ->setBody(
+                $this->renderView(
+                // app/Resources/views/Emails/registration.html.twig
+                    'publico/prueba.html.twig',
+                    array('name' => $name)
+                ),
+                'text/html'
+            )
+            /*
+             * If you also want to include a plaintext version of the message
+            ->addPart(
+                $this->renderView(
+                    'Emails/registration.txt.twig',
+                    array('name' => $name)
+                ),
+                'text/plain'
+            )
+            */
+        ;
+        //$this->get('mailer')->send($message);
+
+        return $this->render(':publico:publico.html.twig');
+    }
+
+
+
 }
